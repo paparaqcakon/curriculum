@@ -106,8 +106,7 @@
 　　　ポートベースVLAN　スタティックVLANとも。スイッチの各ポートにあらかじめどのVLAN環境にあるかを1~4094の中からIDで割り振る方式。スイッチが複数ある時、各VLAN同士をケーブルで接続する必要がある。
 　　　　・アクセスポート　VLAN IDが割り振られたポート
 　　　タグVLAN　どのVLANIDなのかを、ポートではなく送受信するフレームに付加した方式。{ダイナミック式の一つか？}
-　　「ダイナミックVLAN」　8※どのVLAN IDなのかを、接続するデバイスによってポートが動的に変更できるVLAN。MACベースVLAN、IPアドレスにより決定するサブネットベースVLAN、ユーザーベースVLANなど。
-8※https://www.infraexpert.com/study/vlanz2.html
+　　「ダイナミックVLAN」　8※どのVLAN IDなのかを、接続するデバイスによってポートが動的に変更できるVLAN。MACベースVLAN、IPアドレスにより決定するサブネットベースVLAN、ユーザーベースVLANなど。8※https://www.infraexpert.com/study/vlanz2.html
 　　　　・トランクポート　タグVLANやダイナミックVLANにて、複数のスイッチを同士を接続する専用のポート。
 　　　「・MACベースVLAN」　MACアドレスによってどのVLANに所属するのか決まる方式。VMPS(VLAN Management Policy Server)にマッピングを定義しておき、それに問い合わせることで通信する。{物理LANでのMACアドレステーブルのようなイメージか}
 　　　DTP(Dynamic Trunking Protocol)　VLAN環境において、スイッチ同士を繋ぐポートがトランクポートとするかアクセスポートとするかを決めるCisco独自のプロトコル。access,trunk,dynamic desirable,dynamic autoの4つのモードがある。独自規格のため、対応してないスイッチでは誤作動を起こすことがある。その時はDTPをOFFにすれば良い。
