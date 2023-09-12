@@ -1,0 +1,15 @@
+
+P.43 IPヘッダは送信元や相手のIPアドレス情報を含む基本フィールドが20バイト、オプションが0~40バイトとなる。つまり最大60バイト。
+
+P,45 IPv4の枯渇対策のために、Ipv6の策定や,
+RFC1918で策定されたプライベートIPアドレスやRFC1631で策定されたNATがある。
+NAT(Network Adress Transmission)　グローバルIPとプライベートIPを変換する。
+RFC(Request for comment) IETFの作成したインターネット関係の規定に関する文書
+IETF(Internet Engineering Task Force)　アメリカでインターネット関係の規定に関わる組織
+元々アメリカ政府の支援を受けていたが、現在はNPO。
+
+P.66 ICMP(Internet Control Message Protocol)ネットワークでの通信確認や通信エラー時のメッセージ送信を主な用途とするプロトコル。pingコマンドではコレを利用している。IP上で動作するため、ICMPヘッダの前にIPヘッダがある。
+
+pingコマンド　ICMPのエコー要求(Echo Request)とエコー返答(Echo Reply)を利用して通信の可否を確認する。Ciscoでは２秒以内に応答がなければ失敗とみなす。
+
+ARP(Address Resolution Protocol) アドレス解決プロトコル。IPアドレスからMACアドレスを調べるためのプロトコル。MACアドレスは変更不可だが、IPアドレスは変更できるためコレを利用する。P.70-72は要復習
