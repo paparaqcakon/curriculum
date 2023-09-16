@@ -11,7 +11,7 @@ PC　configのfastethernet0でIPアドレス設定　192.168.1.1
 
 
 
-CUI(Characthe User Interface),CLI(Command Line Interface)　コマンドプロンプトのようなキーボードだけで操作するシステム。
+CUI(Characther User Interface),CLI(Command Line Interface)　コマンドプロンプトのようなキーボードだけで操作するシステム。
 
 PCではping 192.168.○○で、相手との通信を確認できる
 
@@ -76,3 +76,19 @@ addがないと上書きになるため、vlan20が登録されてvlan10が解�
 
 DTPの無効化
 hostname(config-if)#switchport nonegotiate
+
+
+STPの確認　
+hostname#show spanning-tree　　現在どのVLANでSTPが有効なのかわかる
+
+STPの無効化
+hostname(config)#no spanning-tree vlan 番号
+
+STPの有効化
+hostname(config)#spanning-tree vlan 番号
+
+
+
+
+
+
