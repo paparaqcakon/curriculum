@@ -1,5 +1,5 @@
 2-1
-SOHO(small office/home office)
+SOHO(small office/home office) 小さいオフィスや自宅でパソコンなどを活用して行う働き方のこと。
 
 2-2
 イーサネットフレームのうち、プリアンブル{8byte}は物理ヘッダという。
@@ -13,9 +13,13 @@ SOHO(small office/home office)
 2-6 VLAN基本
 VLAN1とVLAN1002~1005が最初から作成済みで、削除することができない。
 すべてのポートはまずVLAN1に所属していることからデフォルトVLANと呼ばれている。
+[スタティックVLAN]スイッチポートごとに管理者が手動でVLANを割り当てるVLAN。一般的な方式。
+[ダイナミックVLAN]接続するデバイスによって動的に所属するVLANを変更できるVLAN。コレを利用するためには、各PCのMACアドレスがどのVLANに所属するかの定義をVMPS(VLAN MAnagement Policy Server)で保持する。{MACアドレステーブルのようなもの}
+※実際は802.1x認証ポートで、ADと連携してユーザー,グループ,OU名に応じてVLANを割り当てる手法が一般的※https://www.infraexpert.com/study/vlanz2.html
 
 アクセスポート　1つのVLANに対応するポート　おもにPCを接続するポート
 トランクポート　複数のVLANに対応するポート　おもにネットワークデバイス同士を接続するポート
+[トランク]　木の幹、胴体、主要な、(旅行用の)大型カバン
 
 DTP(Dynamic Trunking Protocol) 	スイッチのポートを動的にアクセスポートかトランクポートに決定するCisco独自のプロトコル
 
@@ -34,7 +38,7 @@ IEEE 802.1Q　ドットワンキューともドットイチキューとも呼ば
 内訳は　TPID(Tag Protocol Identifer)　16ビット　.1qフレームであることを受信側に示す　0x8100の値が入る
 　　　　PCP(Priority Code Point)　3ビット　.1qで定義されたフレームの優先度を示す情報　0~7の値が入る
 　　　　CFI(Canonical Format Indicator)　1ビット　アドレス形式を示す　イーサネットの場合0の値が入る
-　　　　VID(VLAN Identifer)　12ビット　VLAN IDを示す　0~4095の値が入る
+　　　　VID(VLAN Identifier)　12ビット　VLAN IDを示す　0~4095の値が入る
 付加されるフレームサイズは4バイトのため、これによるイーサネットフレームサイズは最大1522バイト
 
 ISL(Inter Switch Link)　Cisco独自のプロトコル　イーサネットフレームをISLヘッダとFCSで囲むことからカプセル化方式とも
@@ -172,4 +176,26 @@ STPの機能
 　
 
 2-13　リンクアグリゲーション
+
+リンクアグリゲーション　複数の物理リンクを一つの論理的リンクとしてまとめることで、通信速度と可用性を高める技術。
+Ether Channel リンクアグリゲーションのCisco独自の呼称
+
+LACP(Link Aggregation Control Protocol)リンクアグリゲーションにおけるネゴシエーションプロトコル。
+IEEE802.3adにて標準化されている。非Ciscoデバイスとの接続で利用できる
+
+PAgP(Port Aggregation Protocol) Ether Channelにおけるネゴシエーションプロトコル。Ciscoデバイスとだけ利用できる。
+
+モード
+on　手動で無条件にEtherChannelを形成する。{つまりシスコ機器限定か？}ネゴシエーションはしない。
+PAgP atuo 相手からPAgPネゴシエーションを受信し、Ether Channelを形成するモード。auto同士だとEther Channelを形成しない。
+PAgP desirable 相手にPAgPネゴシエーションを送信し、Ether Channelを形成するモード。desirable同士でも形成できる。
+LACP passive 相手かLACPネゴシエーションを受信し、リンクアグリゲーションを形成するモード。passive同士だと形成しない。
+LACP active 相手にLACPネゴシエーションを送信し、リンクアグリゲーションを形成する。相手がactiveでも形成する。
+
+
+
+
+
+
+
 　
