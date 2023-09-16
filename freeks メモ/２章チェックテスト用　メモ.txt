@@ -1,0 +1,68 @@
+２章チェックテスト用メモ
+
+要件１ PC0から以下の宛先にpingが通る。
+　　・PC1
+　　・ブロードキャストアドレス
+
+要件２　STPに対応しているVALNを10に変更する。
+
+まず現状で要件１を満たすか実際にpingを通した。
+結果、すでに要件1を満たしていることがわかった。
+
+次に要件２を満たすことを目指す。
+ 現在STPが有効であるかを確認するため各スイッチのCLI画面で特権モードから
+　switch#show spanning-tree　　を入力
+
+Switch0とswitch1の両方において、STPはvlan 1に対応していることがわかった。
+{要件２のvlanを10に変更するというのは名称を変更するのではなく、vlanIDの変更であると解釈した}
+　　　※※もし名称変更だけ良いなら
+　　　　　switch(config)# config vlan 1
+　　　　　switch(config-vlan)# name 10　　　これで完了※※
+
+
+
+ここで、現在スイッチにはvlan 10が存在するのか確認のため
+　switch#show vlan　　を入力
+
+Vlan10が存在していないことがわかった。
+
+
+スイッチ0でvlan10を作成する
+　switch(config)#vlan 10
+スイッチ0のF0/1にVLAN 10を割り当てる
+　switch(config)#interface fastethernet0/1
+　switch(config-if)#switchport mode access
+　switch(config-if)#switchport access vlan 10
+　switch(config-if)#no shutdown
+スイッチ0のG0/1にVLAN 10を割り当てる
+　switch(config)#inteface gigabiteternet0/1
+　switch(config-if)#switchport mode trunk
+　switch(config-if)#switchport trunk allowed vlan 10
+　switch(config-if)#no shutdown
+スイッチ0のG0/2にVLAN 10を割り当てる
+　省略
+正しく作成できたか確認する
+　switch#show running-config
+
+スイッチ１にもvlan10を割り当てていく。
+　ここで、G0/1とG0/2はネゴシエーションによって自動でvlan10が割り当てられている。
+　もしそうでないなら、trunkモードにさえすれば自動で反省される。
+　F0/1だけは手動で設定する。
+
+スイッチ0で Vlan10にSTPを有効化させる
+switch(config)#spanning-tree vlan 10
+
+Vlan1のSTPを無効化する
+switch(config)#no spanning-tree vlan 1
+
+正しく設定できたか確認
+switch#show spanning-tree
+
+スイッチ１でも同様の操作をする。
+
+
+最後に、要件１も満たしているかpingを通して確認する。
+
+
+
+　
