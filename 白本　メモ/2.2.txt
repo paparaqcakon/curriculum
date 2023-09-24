@@ -1,0 +1,33 @@
+Cisco IOS(Internetwork Operating System)  シスコ機器のルータにもスイッチにもあるCLIのOS。
+Ciscoルータの購入直後や初期化後は、必ずコンソール接続する。DB-９がPC側、RJ-45がルーター側のコネクタ。
+
+プロンプト　prompt 「促すもの」という意味。システムの操作時に入力や操作を促す文字列のことを言う。
+
+hostname(config-if)#end　と入力すると一発で特権モードに戻れるユーザモード以外すべてが対象。
+
+NVRAM(Non-Volatile RAM) 不揮発性メモリのこと　startup-config、コンフィギュレーションレジスタはこちらに保存される。
+RAM(Random Access Memory) 揮発性メモリ　running-configはこちらに保存される。
+ROM(Read Only Memory)読み出しメモリ　POST,Booststrap ROMモニタがこちらに保存される。
+　POST ハードウェアのチェックをする
+　Booststrap OSをロードする
+　ROMモニタ　パスワードリカバリの時に利用する。
+フラッシュメモリ　IOSイメージファイルがこちらに保存される。
+
+初期化
+hostname#erase startup-config
+再起動
+hostname#reload
+
+CLIでは「？」を入力するとヘルプ機能が利用できる。
+hostname# ？　　　この場合、特権モードで利用できるコマンドがアルファベット順に表示される。
+
+hostname# con？　　この場合、conに続く単語のコマンド一覧が表示される。Ciscoの場合は configure connect
+
+hostname# configure ？　　この場合、configureの後に使えるオプション一覧が表示される。 terminal confirm memoryなど。
+
+hostname#  configure terminal ？　この場合、crと表示されれば利用できるコマンドであると確認できる。
+<cr>
+
+
+Doコマンド　hostname(config)#やhostname(config-if)#でも、[do]をつければ特権モードと同じコマンドが使える。
+hostname(config-if)# do show running-config
