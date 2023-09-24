@@ -1,0 +1,30 @@
+・ルータの基本
+
+ルーティング　複数の中から最適な経路を選択してパケットを転送する処理。
+ルーティングテーブル　ルータ内に保存してある転送先IPアドレスのリスト。ココにアクセスして最適な経路を選択する。スイッチでいうMACアドレステーブル。
+
+つまりルータを機能させるには、各ノードには必ずIPアドレスの設定が必要になる。
+
+ネクストホップ　宛先に向かうまでに経由する、隣接した次のルータ。
+
+ルータは物理的にケーブルを接続しただけではリンクアップしない。必ずインターフェースの有効化をする。
+hostname(config)#hostname Router1
+Router1(config)#interface fastethernet 0/1
+Router1(config-if)#ip adress 192.168.0.2 255.255.255.0
+Router1(config-if)#no shutdown
+
+
+・シリアルインターフェース　主にWAN接続で利用されるインターフェース
+
+[CPE](Customer Premises Equipment)　WAN環境において、ユーザー宅内に設置される機器。DTEとDCEがある。
+DTE(Data Terminal Equipment)データ端末装置　 WANを介して通信を行う機器。主にルータがコレ。L3スイッチでも可能。
+DCE(Data Circuit terminating Equipment)データ回線終端装置 DTEの電気信号を光信号などに変換して通信事業者のネットワークにアクセスするための機器。モデムやONUがコレ。送受信のタイミングを合わせるためにクロック信号を送信する。
+[アクセス回線]　DCEとWANのネットワークを結ぶ回線。
+[分界点]　通信事業者とユーザの責任範囲の境界。普通はDCE以降が分界点。
+
+昔はDTEとDCEの間はシリアルケーブルで接続していたが、現代ではLANケーブルで接続している。
+
+バックツーバック接続　DCEを用いず、ルータ同士でシリアル接続をすることでどちらかがDCEの役割を持つ接続方式。
+hostname#show controllers serial <番号>　どちらがDCEの役割なのか確認できる
+hostname#(config-if)#clock rate <クロックレート値>　DCEになったルータはクロック値の設定をする。単位はbps。
+
