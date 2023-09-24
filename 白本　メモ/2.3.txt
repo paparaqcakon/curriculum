@@ -1,0 +1,92 @@
+すべてのコマンドは「no」をつけるとその設定を削除できる
+poop(config)# no hostname 
+hostname(condig)#
+
+・パスワード認証
+コンソールパスワード　物理的に接続するときに要求されるパスワード
+hostname(config)# line console 0
+hostname(config-line)#password 「パスワード」　　ここでパスワード設定できてる
+hostname(config-line)# login　　　このコマンド打たないとパスワード要求されない｛no shutdownのような有効化コマンドか}
+
+イネーブルパスワード　ユーザモードから特権モードに移行するとき要求されるパスワード
+hostname(config)# enable password 「パスワード」　　　　ここではloginのコマンドは不要
+
+VTYパスワード　　TELNETやSSLでリモート接続するときに要求されるパスワード
+hostname(config)# line vty 「開始番号」　「終了番号」　　0~4  1~5 などのようにポート番号をまとめて指定できる
+hostname(config-line)#password 「パスワード」
+hostname(config-line)#login
+
+設定したパスワードはshow running-configで確認可能
+
+パスワードの設定がないと、VTY接続は利用することができない。
+password required,but none set
+
+パスワード入力画面では、打ち込んでいるキーが全く入力されない。
+3回ミスると、
+
+
+・パイプ機能　showコマンドの後に付け加えることで、目的に応じた表示にできる機能
+begin　　指定した内容に一致した行から表示する
+exclude　　指定した内容に一致した行を表示しない
+include　　指定した内容に一致した行のみを表示する
+section　　指定した内容に一致したセクションのみを表示する
+※パイプ機能はスイッチでは使えなかった
+
+hostname# show running-config section line
+
+・ローカル認証　作成したユーザーごとにユーザ名とパスワードで認証する方法
+ユーザー作成　　ユーザーごとに、特権モードの管理権限とパスワードを個別に付与できる。特権レベルは０～１５で指定でき、数字が大きいほど使用できるコマンドが多い。
+※コンソール接続、VTY接続時にはそれぞれのパスワードの代わりにローカル認証を要求される
+hostname(config)#username「名前」 privilege「特権レベル」 password「パスワード」
+hostname(config)#line console 0
+hostname(config-line)# login local が有効になる
+
+パスワード認証用のパスは
+hostname(config-line)#　で作成
+ローカル認証用のユーザーは
+hostname(config)#　　で作成
+
+
+・パスワードの暗号化　　コレをしないとshow running-config で外部の人間に漏洩する可能性がある。
+イネーブルパスワードの場合
+hostname(config)#enable secret 「パスワード」
+※enable passwordと別の単語を設定した場合、暗号化したほうが問われるようになる
+
+コンソール,VTY,ローカル認証の場合
+hostname(config)#service password-encryption　　今まで設定したパスすべてが暗号化され、今後作成するものもすべて暗号化される。
+
+hostname(config)# no service password-encryption　　今後作成するものは暗号化しないが、すでに暗号化されたものは元に戻らない。
+
+・自動ログアウト
+hostname(config-line)#exec-timeout [分] [秒]
+
+・SSHの設定
+①ホスト名設定　デフォルトのままだとSSHは利用できないので変更必須
+②ドメイン名設定　
+(config)#ip domain-name[ドメイン名]　これもSSHに必須
+③RSA暗号鍵の生成　
+(config)#crypto key generate rsa　　ここに①と②の設定が必須だった　
+④ユーザアカウントの作成　
+⑤ローカル認証を設定　VTYパスワードでログインできないため、ローカル認証が必要になる。
+⑥SSHの接続許可を設定　
+(config-line)#transport input ssh　　ほかにtelnetもしくはallで両方認証できる。noneでVTY接続そのものを禁止できる。
+⑦SSHのバージョンを設定　
+(config)#ip ssh version 2　　　バージョン１も存在するが、脆弱性が指摘されているため２を推奨される。
+※スイッチでは⑥⑦はできなかった
+
+・ルータでのIPアドレス設定
+①CLIでインタフェースのコンフィグ画面に移行
+(config)interface fastethernet0/1
+②IPアドレス設定
+(config-if)#ip address [IPアドレス] [サブネットマスク]　プレフィクス表記ではエラーとなる
+③有効化
+(config-if)#no shutdown
+　
+
+特権モード　利用可能コマンド
+#copy　○○　△△
+#erase ○○
+#reload
+#show　○○
+#configure terminal
+他
