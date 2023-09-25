@@ -10,7 +10,7 @@
 ルータは物理的にケーブルを接続しただけではリンクアップしない。必ずインターフェースの有効化をする。
 hostname(config)#hostname Router1
 Router1(config)#interface fastethernet 0/1
-Router1(config-if)#ip adress 192.168.0.2 255.255.255.0
+Router1(config-if)#ip address 192.168.0.2 255.255.255.0
 Router1(config-if)#no shutdown
 
 
@@ -18,7 +18,7 @@ Router1(config-if)#no shutdown
 
 [CPE](Customer Premises Equipment)　WAN環境において、ユーザー宅内に設置される機器。DTEとDCEがある。
 DTE(Data Terminal Equipment)データ端末装置　 WANを介して通信を行う機器。主にルータがコレ。L3スイッチでも可能。
-DCE(Data Circuit terminating Equipment)データ回線終端装置 DTEの電気信号を光信号などに変換して通信事業者のネットワークにアクセスするための機器。モデムやONUがコレ。送受信のタイミングを合わせるためにクロック信号を送信する。
+DCE(Data Circuit terminating EquipmentもしくはData Communications Equipment)データ回線終端装置 DTEの電気信号を光信号などに変換して通信事業者のネットワークにアクセスするための機器。モデムやONUがコレ。送受信のタイミングを合わせるためにクロック信号を送信する。
 [アクセス回線]　DCEとWANのネットワークを結ぶ回線。
 [分界点]　通信事業者とユーザの責任範囲の境界。普通はDCE以降が分界点。
 
@@ -28,3 +28,74 @@ DCE(Data Circuit terminating Equipment)データ回線終端装置 DTEの電気�
 hostname#show controllers serial <番号>　どちらがDCEの役割なのか確認できる
 hostname#(config-if)#clock rate <クロックレート値>　DCEになったルータはクロック値の設定をする。単位はbps。
 
+・オートネゴシエーションの可否　
+通信方式の場合
+hostname(config)#duplex auto　　fullやhalfで全二重や半二重通信で固定されるが、autoならオートネゴシエーションとなる。
+通信速度の場合
+hostname(config)#speed auto　　10,100,1000などで固定できるが、autoでおートネゴシエーションとなる。
+※上記二つはシリアルインターフェースではおートネゴシエーションが発動しない。
+
+・インターフェースの確認
+hostname#show interface <インタフェース名>　指定したインタの詳細を確認できるが、指定なしならば全てのインタGA表示される。
+一部抜粋
+　MTU単位はbyte。 BW(Bandwidth)帯域幅。単位はkbps。 DLY(Delay)遅延 Tx(Transmitter)送信側 Rx(Receiver)受信側
+　reliability インタフェースの信頼性５分間の平均。255/255が最大。0/255が最小。
+　Encapsulation インターフェースでのデータリンクでのカプセル化{ARPAはEthernetⅡを指す}
+　Keepalive 回線が機能しているかの確認をする通信間隔
+　runts　パケットの最小サイズを満たないために破棄されたパケットの数。通信モードの不一致やケーブルなどの不良によって増加する。
+　giants　パケットの最大サイズを超えたために破棄されたパケットの数。NICが不良の時増加する。
+　throttles　バッファやプロセッサに負荷がかかり受信できなかった数。
+　inputs error　runts,giants,throttles,CRC,frame,overrun,ignored countsを含む入力関連のエラー数。 
+　CRC　CRCのチェックに失敗した数。コリジョンが発生した場合や通信モードの不一致によって増加する。
+　frame オクテット数が整数値となっていないパケット数。
+　overrun 処理能力を超過するパケットを受け取り、バッファに送れなかった数。
+　ignored counts 受信したデータがバッファ不足により破棄された回数。ブロードキャストストームが発生すると増加する。
+　late collision レイとコリジョンの回数。ケーブルが長すぎたり、全二重,半二重のミスマッチ、NICの不調などで発生。
+
+　runt　一番小さな、ちび、出来損ない、嫌なやつ、などの英単語。
+　throttle　一定時間内に送信できるリクエスト数を制限するプロセス。絞り。
+　CRC(Cyclic redundancy checksum)インタフェースのアクセスにおいて、データに誤り検出符号を付加することでデータの転送誤りを検出する機能。
+
+・インターフェースのIPに関する確認
+hostname# show ip interface <brief> <インタ番号>　briefをつけると簡略表示になる。インタフェース番号がなければ全てのインターフェースの情報が確認できる。
+　一部抜粋
+　Methods　設定方法。unset:設定されてない。manual:手動で設定されている。NVRAM:設定後、メモリの保存されている。DHCP:DHCPで自動で設定されている。
+　Status　物理層の状態。up:正常。down:機能してない。administratively down:シャットダウン状態。
+　Protocol　データリンク層の状態。up;正常。down:正常でない。
+　
+　S:administratively down　P:down　管理上インターフェースを無効にしている。
+　S:down　P:down　ケーブルが断線している。相手側がシャットダウン状態にある。
+　S:up　P:down　クロックレートが設定されていない。カプセル化のタイプが一致していない。keepaliveを受信していない。ケーブルが接続されていない。
+　S:up　P:up　インタフェースは有効である。
+
+・接続性の確認
+標準ping
+hostname#ping [相手のIPアドレス]
+実行結果の意味
+　！　応答が受信できた
+　.　応答が一定時間内に受信できなかった
+　U　応答として宛先到達不能が返ってきた
+　Q 応答としてソースクエンチ(送信元抑制)であることが返ってきた
+　M 応答としてフラグメント不能が返ってきた
+　？　パケットのタイプが不明である
+　＆　パケットの生存時間TTLを超過してしまった
+
+拡張ping
+hostname# ping　　ipアドレスを入れないことで一行ずつ様々なパラメータを手動で入力する。
+　Protocol[ip]:プロトコル
+　Target IP address:宛先IPアドレス
+　Repeat count [5]:ICMPパケットの送信回数
+　Datagram size[100]:送信するデータのサイズ
+　Timeout in seconds [2]:タイムアウトと見做すまでの時間
+　Extended commands [n]:yさらに詳細設定するか
+　yの場合詳細設定〜中略〜
+　sweep range of sizes[n]:送信するパケットのサイズを変更するか
+
+Pingは通常、相手に最も近い位置のインタフェースから送信される。
+コレの送信元を変更
+hostname#ping <相手のIP> source <送信元IP>
+
+Tracerouteコマンド　pingと異なり、相手までの経路も確認できる。
+※windowsならtracertでICMPを利用。　Cisco IOSやLinuxではTracerouteでUDPを利用。
+TTLを使用する。TTLを１から順番に試すことで、相手PCまでに通過するノードのIPアドレスが全てわかる。
+hostname#traceroute <相手のip>
