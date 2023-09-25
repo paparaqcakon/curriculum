@@ -1,0 +1,36 @@
+・ダイナミックルーティング（動的）
+ルーティングプロトコルを利用して自動でルート情報を交換する。障害の発生時、リアルタイムで最適経路を切り替える。帯域やCPU負荷は静的よりも大きい。
+
+○ルーティングプロトコル　
+OSPF(Open shortest Path First)
+RIP(Routing Information Protocol)
+EIGRP(Enhanced Interior Gateway Routing Protocol)
+BGP(Border Gateway Protocol)
+IS-IS(Intermediate System to Intermediate System)
+などあるが、「「CCNAでの出題範囲はOSPFのみ！！！！」」
+
+メトリック　宛先ネットワークまでの距離のこと。複数ある経路のうち、メトリックの値が最も小さいものが最適ルートとしてルーティングテーブルに登録される。ルーティングプロトコルによってメトリックの算出方法が異なる。
+OSPFの場合は帯域幅から計算される。
+RIP ホップ数（ルータを跨ぐ個数）
+EIGRP 帯域幅、遅延、信頼性、負荷、MTUなどの複合
+
+アドバタイズ　ルータの情報を隣接ルータに通知すること
+ルーティングアップデート　ダイナミクルーティングでルータ同士が交換しているルート情報
+
+・ルーティングプロトコルの分類
+IGP(Interior Gateway Protocol) AS：自律システム内で経路交換するためのルーティングプロトコル。RIP,OSPF,EIGRP。
+AS (Autonomous System)ある組織がその組織の管理ポリシーに従って運用しているルータやネットワークをひとまとめしたもの。ISPなどがコレに当たり、各ASに接続してインターネットを構成する。
+EGP(Exterior Gateway Protocol)　異なるAS間で経路情報をやりとりするルーティングプロトコル。BGP。
+
+○ルーティングアルゴリズム　IGPは大きく３つに分けられる。
+ディスタンスベクタ型　RIPがコレに当たる。お互いのルーティングテーブル情報を交換する方式。距離(ディスタンス)と方向(ベクトル)を元にベルマンフォード法というアルゴリズムで宛先までの最適ルートを選ぶ。
+
+拡張ディスタンスベクタ型(ハイブリッド型)　EIGRPがコレに当たる。基本的な動作はディスタンスベクタ型だが、リンクステート型の特徴もある。DUALというアルゴリズムを使用する。
+ [ネイバー] 隣接するルータのこと。
+ [AD(Advertised Distance)もしくはRD(Reported Distance)]あるルータのネイバーから目的のネットワークまでのメトリック。
+ [FD(Feasible Distance)]ルータから目的のネットワークまでのメトリック。
+ Successor サクセサ　あるルータから目的のネットワークまでの最適ルート。FDが最小のルートがサクセサとなる。
+ Feasible Successor フィージブルサクセサ　サクセサのバックアップ。目的のネットワークまでの経路があっても、条件を満たさなければ選出されない。
+ DUAL(Diffusing Update Algorithm) https://www.n-study.com/eigrp-detail/eigrp-dual-teminology/
+
+リンクステート型　OSPFとIS-ISがコレに当たる。
