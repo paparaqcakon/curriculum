@@ -1,0 +1,94 @@
+Cisco Packet Tracer
+
+アドレス：yitest00001@gmail.com
+
+パスワード：LetsEngineer1
+
+PC　configのfastethernet0でIPアドレス設定　192.168.1.1
+メモでPCの上にIP書き残しとく
+
+スイッチ設置　スイッチとPCを接続　ポート選んだらこれもメモで書き残しておく
+
+
+
+CUI(Characther User Interface),CLI(Command Line Interface)　コマンドプロンプトのようなキーボードだけで操作するシステム。
+
+PCではping 192.168.○○で、相手との通信を確認できる
+
+スイッチでは
+ユーザーモード
+特権モード
+グローバルコンフィギュレーションモード
+
+上記3つのモードが存在する。
+
+・ユーザーモード　CLIを起動したときのモード。基本使わない。enable もしくはenで特権モードに移行する。
+
+・特権モード　hostname#>という表示になる。exitでユーザーモードに戻る。設定確認するモードのためshowから始まるコマンドが多い。configure terminalでグローバルコンフィギュレーションに移行する。conf tでも移行可能
+
+・グローバルコンフィギュレーション　hostname(config)#>という表示になる。exitで特権モードに戻る。設定変更するためのモード。一番よく使う。
+
+
+特権モード　hostname#show startup-config　起動したときの設定を確認するコマンド
+　　　　　hostname#show running-config　現在稼働中の設定を確認するコマンド
+
+Cisco製品には起動した直後にはstartup configでは何も表示されない。
+そのためrunning configからコピーさせる。
+
+hostname#copy running-config startup-config
+(write memoryでもできるが、今後できなくなる可能性がある)
+
+グローバルコンフィギュレーション　
+hostname(config)#hostname ホスト名　ホスト名を変更できるコマンド　　
+
+2章
+スイッチのCLIから
+hostname#show vlanで現在のvlan 環境を確認
+
+vlan の作成 各スイッチごと、各vlan番号ごとに作成する
+hostname(config)#vlan 番号 
+hostname(config-vlan)#　　
+
+インタフェースの設定画面
+hostname(config)#interface fastethernet0/1
+hostname(config-if)#　
+
+F0/1にVLAN10を割り当てる
+hostname(config-if)#switchport mode access　　F0/1をアクセスポートに設定
+hostname(config-if)#switchport access vlan 10　　F0/1をVLAN10に設定
+hostname(config-if)#no shutdown　　有効化
+
+G0/1にトランクポートを設定
+hostname(config)#interface gigabitethernet0/1
+hostname(config-if)#
+
+hostname(config-if)#switchport mode trunk　トランクポートに設定
+hostneme(config-if)#switchport trunk allowed vlan 10,20　トランクポートにvlan10と20を割り当て
+hostname(config-if)#no shutdown　有効化
+
+hostneme(config-if)#switchport trunk allowed vlan  [add/remove/except]10,20　必要に応じてそれぞれ記載する
+
+例えば、トランクポートにvlan10だけ割り当てた後に、後から追加したい場合
+hostname(vonfig-if)#switchport trunk allowed vlan add 20 
+
+addがないと上書きになるため、vlan20が登録されてvlan10が解除される。
+
+
+DTPの無効化
+hostname(config-if)#switchport nonegotiate
+
+
+STPの確認　
+hostname#show spanning-tree　　現在どのVLANでSTPが有効なのかわかる
+
+STPの無効化
+hostname(config)#no spanning-tree vlan 番号
+
+STPの有効化
+hostname(config)#spanning-tree vlan 番号
+
+
+
+
+
+
