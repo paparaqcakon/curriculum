@@ -1,0 +1,14 @@
+問 以下のMACアドレスを確認し、EUI-64を用いて64ビットのインターフェースIDに拡張してください
+ 
+(1)MACアドレス：AAAA.AAAA.AAAA
+　インタフェースID：A8 AA AA FF FE AA AA AA
+
+(2)MACアドレス：9876.5432.10FE
+　インタフェースID：9A 76 54 FF FE 32 10 FE
+
+(3)MACアドレス：FFFF.FFFF.FFFF
+　インタフェースID：FD FF FF FF FE FF FF FF
+
+
+
+
