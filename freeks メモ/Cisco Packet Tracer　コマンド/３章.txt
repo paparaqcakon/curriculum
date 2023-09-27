@@ -1,0 +1,12 @@
+IPv6ルーティングの有効化
+hostname(config)#ipv6 unicast-routing
+
+手動設定
+hostname(config-if)#ipv6 address <アドレス> <プレフィクス長> [eui-64]
+Eui-64を指定した場合、アドレスはプレフィクス部分だけを入力すればok。
+
+オートコンフィギュレーションによる自動設定　SLAAC　ステートレス
+hostname(config-if)#ipv6 address autoconfig
+
+DHCPサーバによる自動設定　ステートフル
+hostname(config-if)#ipv6 address dhcp
