@@ -10,3 +10,43 @@ hostname(config-if)#ipv6 address autoconfig
 
 DHCPサーバによる自動設定　ステートフル
 hostname(config-if)#ipv6 address dhcp
+
+ルータにIPアドレスを割り当てる
+hostname(config-if)#ip address <アドレス> <サブネットマスク>
+hostname(config-if)#no shutdown　　インターフェースごとに割り当て、ワークスペース上に追記しておく
+
+各PCのconfigから最寄りのルータのIPアドレスをデフォルトゲートウェイに登録
+
+
+コンソールパスワードの設定
+hostname(config)#line console 0
+hostname(config-line)#password <パスワード>
+hostname(config-line)#login
+
+イネーブルパスワード
+hostname(config)#enable password <パスワード>
+
+VTYパスワード
+hostname(config)#line vty <開始ライン番号> <終了ライン番号>　終了ライン番号を省略すると、開始ライン番号のみの設定となる
+
+ローカル認証
+hostname(config)#username <名前> priviledge <特権レベル> password <パスワード>　特権レベルは0~15までのどれか
+hostname(config)#line console 0
+hostname(config-line)#login local
+
+イネーブルパスワードの暗号化
+hostname(config)#enable secret <パスワード>
+
+コンソール・VTYパスワードの暗号化
+hostname(config)#service password-encryption
+
+
+ルーティングテーブルの確認
+hostname#show ip route
+
+Cは直接接続されているノード　Lはそのルータ自身のIPアドレス
+
+
+スタティックルーティングの設定
+hostname(config)#ip route <宛先IPアドレス> <宛先のサブネットマスク> <ネクストホップor出力インタフェース> <AD値>　
+ネクストホップは宛先に向かうまでの一番近いルータのインタフェース　AD値は変更したい時だけ入力する
