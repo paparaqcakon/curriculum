@@ -1,0 +1,27 @@
+DHCP(Dynamic Host Configuration Protocol) IPアドレスを自動で割り当てるプロトコル。
+
+DHCPサーバ　配布するIPアドレスなどの情報を持っており、その割り当てを行う。
+DHCPクライアント　DHCPサーバに要求を出す側になり、割り当てられた情報をもらう。
+
+DHCPの割り当てられる情報
+　○IPアドレスとサブネットマスク
+　○デフォルトゲートウェイ
+　○DNSサーバ
+
+DHCPの流れ
+　①DHCPクライアントが、同じネットワークに対してブロードキャストでDHCP Discoverを送信する。
+　　DHCP Discover　割り当てを要求するメッセージ。
+　
+　②DHCP Discoverを受け取ったDHCPサーバはDHCP Offerをユニキャストで返信する。
+　　DHCP Offer 割り当て情報の候補を返答するメッセージ。
+
+　③クライアントがDHCP Offerを受けて、問題なければDHCP Requestをブロードキャストで送信する。
+　　DHCP Request IPアドレス割り当ての正式な要求メッセージ。
+　
+　④DHCPサーバがDHCP Requestを受けて、DHCP ACKをユニキャストで送信する。
+　　DHCP ACK 要求を認める返答のメッセージ
+
+　⑤クライアントがDHCP ACKを受信してネットワークの設定を行う。
+
+
+DHCPリレーエージェント　DHCPサーバが外部ネットワークにある場合に機能する。ルータはブロードキャストアドレス宛のメッセージをユニキャスト宛に変換して、異なるネットワークアドレスに存在するDNSサーバに転送する。
