@@ -1,3 +1,4 @@
+
 IPv6ルーティングの有効化
 hostname(config)#ipv6 unicast-routing
 
@@ -50,3 +51,42 @@ Cは直接接続されているノード　Lはそのルータ自身のIPアド�
 スタティックルーティングの設定
 hostname(config)#ip route <宛先IPアドレス> <宛先のサブネットマスク> <ネクストホップor出力インタフェース> <AD値>　
 ネクストホップは宛先に向かうまでの一番近いルータのインタフェース　AD値は変更したい時だけ入力する
+
+
+OSPFの設定
+hostname(config)#router ospf <プロセスID>　プロセスIDは1~65535のうちなんでも良いが、普通「１」
+hostname(config-router)#network <アドレス> <ワイルドカードマスク> area <エリアID>　アドレスは有効にしたいネットワークアドレス。 
+ワイルドカードマスクはアドレスの一致範囲を示すもの。サブネットマスクを二進数表記で反転させたもの。0.0.0.255 のような表記になる。完全一致したものだけ指定する場合、0.0.0.0を入力する。
+エリアIDは所属するものを指定する。エリアが一つの場合はシングルエリアと呼ばれ、通常エリア０を使用する。
+
+
+DR,BDR選出のためのルータIDを設定
+hostname(config)#router-id <ルータID>
+
+ループバックインターフェースを設定する
+hostname(config)#interface Loopback <番号>
+
+ネイバーのOSPFを確認
+hostname#show ip ospf neighbor
+
+インターフェースのOSPFを確認　
+hostname#show ip ospf interface <インターフェース>
+
+
+デフォルトルートの設定
+hostname(config)# ip route 0.0.0.0 0.0.0.0 <ネクストホップor出力インタフェース>
+
+
+
+標準ACLの設定
+hostname(config)#access-list <番号> <permit or deny> <IPアドレス> <ワイルドカードマスク>
+番号は1~99もしくは1300~1999から選ぶ。
+Premitは許可　denyは拒否　IPアドレスは送信元を入力　ワイルドカードは一つだけ指定のため0.0.0.0
+
+ACLの適用
+hostname(config-if)#ip access-group <番号> <in or out>
+番号は、すでに設定したものと同じもの　　inはインバウンド　outはアウトバウンド
+
+拡張ACLの設定
+hostname(config)#access-list <番号> <permit or deny> <プロトコル> <送信元IPアドレス> <ワイルド> <宛先IPアドレス> <ワイルド> <オプション>
+番号は100~199もしくは2000~2699が指定可能。プロトコルはipやtclなど。オプションはなくても良い
