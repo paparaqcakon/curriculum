@@ -1,4 +1,5 @@
 
+
 IPv6ルーティングの有効化
 hostname(config)#ipv6 unicast-routing
 
@@ -90,3 +91,68 @@ hostname(config-if)#ip access-group <番号> <in or out>
 拡張ACLの設定
 hostname(config)#access-list <番号> <permit or deny> <プロトコル> <送信元IPアドレス> <ワイルド> <宛先IPアドレス> <ワイルド> <オプション>
 番号は100~199もしくは2000~2699が指定可能。プロトコルはipやtclなど。オプションはなくても良い
+
+適用方法は標準ACLと同じ
+
+
+
+スタティックNATの設定
+ルータのI/Fにインサイドまたはアウトサイドの設定をする
+hostname(config-if)#ip nat <inside or outside>　LAN内部側がinside 外部側がoutside
+
+内部ローカルアドレスと内部グローバルアドレスの組み合わせをNATテーブルに登録する
+hostname(config)#ip nat inside source static <内部ローカルアドレス> <外部グローバルアドレス>
+
+NATの確認　
+hostname#show ip nat translation
+
+
+ダイナミックNATの設定
+ルータのI/Fにインサイドまたはアウトサイドの設定をする
+
+変換対象となる内部ローカルのリストを作る
+hostname(config)#access-list <番号> <permit or deny> <IPアドレス> <ワイルド>
+
+アドレスプールを作る　[貸し出し用IPアドレスの範囲のこと]
+hostname(config)#ip nat pool <プール名> <開始アドレス> <終了アドレス> netmask <サブネットマスク>
+
+内部ローカルアドレスのリストとアドレスプールを紐づける
+hostname(config)#ip nat inside source list <ACL番号 or ACL名> pool <プール名>
+
+
+PATの設定
+I/Fのインサイド、アウトサイドの設定
+変換対象の内部ローカルリストの作成
+必要ならアドレスプールを作成する。（なくても問題ない）
+内部ローカルアドレスのリストと外部インタフェースを紐づける
+hostname(config)#ip nat inside source list <ACL番号> pool <プール名> interface <インタフェース名>　overload
+プールとインターフェースはどちらかだけで良い
+
+
+
+DHCPの設定
+　サーバ側の設定
+　　>アドレスプールの作成
+hostname(config)#ip dhcp pool <プール名>
+
+　　>配布するIPアドレスのネットワークとサブネットを指定
+hostname(dhcp-config)#network <ネットワークアドレス> <サブネットマスク or プレフィクス>
+
+　　>デフォルトゲートウェイの設定
+hostname(dhcp-config)#default-route <IPアドレス>
+
+　　>リース期間の設定
+hostname(dhcp-config)#lease <日数> <時間　分>　省略した場合、デフォルトで１日間となる
+
+　　>DNSサーバの指定　　　必須ではない。必要ならやる。
+hostname(dhcp-config)#dns-server <DNSサーバのIPアドレス>　このアドレスは複数入力可能
+
+　　>除外アドレスの指定　　必須ではない。必要ならやる。
+hostname(config)#ip dhcp excluded-address <開始アドレス>　<終了アドレス>　指定した範囲が除外される。終了アドレスを省略した場合、開始アドレスのみ除外される。
+
+　
+　クライアント側の設定　
+hostname(config-if)#ip address dhcp
+
+
+
