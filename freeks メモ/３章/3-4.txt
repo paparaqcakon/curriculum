@@ -13,6 +13,6 @@ NDP(Neighbor Discovery Protocol) IPv6ネットワークにおいて、ある端�
 
 　③DAD(Duplicate Address Detection)重複アドレスの検出　使用しようとしたアドレスが重複していないかの検出をする。
 
-EUI-64　MACアドレス(48ビット)をもとにして、64ビットに拡張するフォーマット。IEEEによって標準化され、インタフェースIDの生成に利用される。
+EUI-64(Extended Unique Identifer)　MACアドレス(48ビット)をもとにして、64ビットに拡張するフォーマット。IEEEによって標準化され、インタフェースIDの生成に利用される。
 
 
