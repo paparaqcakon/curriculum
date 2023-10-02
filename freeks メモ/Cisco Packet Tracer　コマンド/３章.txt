@@ -30,9 +30,11 @@ hostname(config)#enable password <パスワード>
 
 VTYパスワード
 hostname(config)#line vty <開始ライン番号> <終了ライン番号>　終了ライン番号を省略すると、開始ライン番号のみの設定となる
+Hostname(config-line)#password <パスワード>
+hostname(config-line)#login
 
 ローカル認証
-hostname(config)#username <名前> priviledge <特権レベル> password <パスワード>　特権レベルは0~15までのどれか
+hostname(config)#username <名前> privilege <特権レベル> password <パスワード>　特権レベルは0~15までのどれか
 hostname(config)#line console 0
 hostname(config-line)#login local
 
@@ -91,6 +93,8 @@ hostname(config-if)#ip access-group <番号> <in or out>
 拡張ACLの設定
 hostname(config)#access-list <番号> <permit or deny> <プロトコル> <送信元IPアドレス> <ワイルド> <宛先IPアドレス> <ワイルド> <オプション>
 番号は100~199もしくは2000~2699が指定可能。プロトコルはipやtclなど。オプションはなくても良い
+※拡張ACLを設定すると、沈黙のany denyという全てを拒否するコードが追加される{表示されないが}。そのため以下を追加で設定する
+hostname(config)#access-list <番号> permit  <プロトコル> any any
 
 適用方法は標準ACLと同じ
 
