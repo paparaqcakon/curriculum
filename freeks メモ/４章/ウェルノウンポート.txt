@@ -5,3 +5,8 @@ TFTP
 FTP
 SMTP
 RIP
+ssh
+DNS
+POP3
+NTP
+SNMP
