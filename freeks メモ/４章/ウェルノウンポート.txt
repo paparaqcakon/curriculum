@@ -10,4 +10,13 @@ DNS
 POP3
 NTP
 SNMP
-HSSP
+HTTPS
+IMAP4
+SMTPS
+POP3S
+IMAPS
+SNMP trap
+
+ウェルノウンポート　
+登録ポート
+クライアントポート 
