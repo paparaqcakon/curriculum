@@ -98,5 +98,12 @@ Spanning-tree mode rapid-post
 
 Show ip interface briefでのmethodではipアドレスの設定方法が記載される。no ip addressの設定をした場合でもmanualと表示される。初期から一度も設定してない時だけunsetと表示になる。
 
-LLDPでえた情報の保持期間を変更するコマンド
+LLDPで得た情報の保持期間を変更するコマンド
 (config)# lldp holdtime <秒>　〇〇秒後までにパケットが届かなかったらlldpで得た情報を破棄する。
+
+
+IPv6 エニーキャスト　同じユニキャストアドレスを複数の機器に割り当て、最も近い機器と通信するアドレス。
+
+STP
+uplinkfast 直接的な障害の収束を早める
+backbonefast 間接的な障害の収束を早める
