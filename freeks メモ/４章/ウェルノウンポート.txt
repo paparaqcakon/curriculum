@@ -15,7 +15,7 @@ IMAP4
 SMTPS
 POP3S
 IMAPS
-SNMP trap
+
 
 ウェルノウンポート　
 登録ポート
