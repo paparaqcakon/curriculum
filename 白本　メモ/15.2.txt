@@ -10,4 +10,4 @@ CAPWAP(Control And Providing of Wireless Access Points)WLCとLAPの間でやり�
 　>CAPWAP制御メッセージ　WLCによるAPの構成,操作,管理に使用される。制御メッセージは認証と暗号化されるため、不正なAPの接続を防げる。
 　>CAPWAPデータ　クライアントから受信したデータをAPからWLCに転送するときに使う。WLCの機種によってはDTLSという暗号化をしてCAPWAPトンネル内で安全に通信する。
 
-FlexConnect　LAPがWLCとの接続を失っても独立して動作を可能にする動作モード。
+FlexConnect　LAPがWLCとの接続を失っても独立して動作を可能にする動作モード。WAN経由でWLCと接続するときに使用するモード。
