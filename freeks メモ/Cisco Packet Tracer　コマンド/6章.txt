@@ -1,0 +1,62 @@
+・ポートセキュリティの設定
+スイッチポートをアクセスにする
+(config-if)#switchport mode access
+
+ポートセキュリティの有効化
+(config-if)#switchport port-security
+
+セキュアMACアドレス登録可能最大数の指定
+(config-if)#switchport port-security maximum[数]
+
+セキュアMACアドレスの手動登録
+(config-if)#switchport port-security mac-address[MACアドレス]
+
+セキュアMACアドレスの自動登録
+(config-if)#switchport port-security mac-address sticky
+
+違反時の動作指定
+(config-if)#switchport port-security violation[protect or restrict or shutdown]　指定しなければシャットダウンとなる
+
+
+・DHCPスヌーピングの有効化
+(config)#ip dhcp snooping vlan [VLAN番号]
+
+信頼できるポートの指定
+(config-if)#ip dhcp snooping trust　　　noを先頭につけると信頼できないポートになる
+
+DHCPスヌーピング設定確認
+#show ip dhcp snooping
+
+
+・ダイナミックARPインスペクションの設定
+(config)#ip arp inspection vlan [vlan番号]
+
+信頼できるポートの指定
+(config-if)#ip arp inspection trust　　　　この設定をしないポートはすべて信用されないポートになる
+
+設定内容の確認
+#show ip arp inspection
+
+
+・AAAの設定
+AAAの有効化
+(config)#aaa new-model
+
+＞認証方式の設定
+認証方式リストの作成
+(config)#aaa authentication login [default or リスト名] [認証方式１] [認証方式２]
+認証方式1,2には以下のコマンドが設定できる
+enable　あらかじめ設定されているイネーブルパスワードを使用
+group radius　RADIUSサーバによる認証を使用
+group tacacs+　TACACS+サーバによる認証を使用
+line　ラインモードで設定されているパスワードを使用
+local　ローカル認証用のユーザアカウント情報を使用
+local-case　ローカル認証と同じだが、ユーザ名の大文字小文字を区別する　 
+none　認証を使用しない
+
+各認証方式ごとの設定はしらべやがれ
+
+認証方式の適用
+(config)#line [ライン名] [ライン番号]
+
+(config-line)#login authentication [default or リスト名]
