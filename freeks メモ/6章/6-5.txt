@@ -1,0 +1,10 @@
+AAA Authentication,Authorization,Accountingの略称　
+
+〇Authentication 認証　ユーザIDやパスワードなどの情報をもとにアクセスが許可されているユーザなのかの認証をする機能
+〇Authorization 認可　認証されたユーザに対して与える権限を制限する機能。
+〇Accounting アカウンティング　認証されたユーザに対して、いつログインして何をしているのかの監視・記録する機能。
+
+使用プロトコル
+＞RADIUS(Remote Authentication Dial In User Service)　認証とアカウンティングの機能があるプロトコル。許可と認証は統合されて区別がない。UDPを使用するサーバクライアント型のプロトコル。やり取りするパケットのパスワードを暗号化する。認証に1812ポート,アカウンティングに1813ポートを使用する。ネットワークにアクセスしたりルータやスイッチにログインするときにRADIUSプロトコルで認証できる。
+
+＞TACACS+(Terminal Access Controller Access Control System)　認証,認可,アカウンティングの機能をもつプロトコル。TCPを利用するサーバクライアント型のプロトコル。49ポートを利用する。やり取りするパケット全体を暗号化できる。RADIUSのようにログイン認証にも使える。
