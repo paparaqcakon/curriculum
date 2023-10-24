@@ -60,3 +60,13 @@ none　認証を使用しない
 (config)#line [ライン名] [ライン番号]
 
 (config-line)#login authentication [default or リスト名]
+
+
+ポートセキュリティの確認　有効なポート,セキュアMACアドレスの最大数,現在のセキュアMACアドレスの数,違反カウンタ,違反時の動作モードが確認できる
+#show port-security
+
+セキュアMACアドレスの確認　登録が手動か,自動か,スティッキーなのか、自動登録なら消去されるまでの時間など確認できる
+#show port-security address
+
+I/Fごとの確認　
+#show port-security interface [インタフェース名]
