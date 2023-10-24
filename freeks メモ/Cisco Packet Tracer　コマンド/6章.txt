@@ -56,6 +56,9 @@ none　認証を使用しない
 
 各認証方式ごとの設定はしらべやがれ
 
+※group radiusの場合　適用方法
+(config)#radius-server host [サーバのIPアドレス] key [設定したキー]
+
 認証方式の適用
 (config)#line [ライン名] [ライン番号]
 
