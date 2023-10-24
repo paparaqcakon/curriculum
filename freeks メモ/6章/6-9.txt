@@ -1,0 +1,36 @@
+ポートセキュリティの確認
+#show port-securityでポートの状態を確認できる
+
+・Secure Port:有効になってるI/F
+・MaxSecure Addr:登録できるセキュアMACアドレスの最大数
+・Current Addr:現在登録されているセキュアMACアドレスの
+・security Violation:違反カウンタ
+・Security Avtion:違反時の動作モード
+
+
+セキュアMACアドレスの確認
+#show port-security address
+
+・vlan:ポートの所属VLAN
+・Mac Address:登録しているセキュアMACアドレス
+・Type:登録方法
+　＞SecureConfigurted:手動
+　＞SecureDynamic:自動
+　＞SecureSticky:自動でスティッキーラーニングが有効
+・Ports:インターフェース
+・Remaining Age:自動で登録されたセキュアMACアドレスを消去するまでの時間
+
+
+インターフェースごとの確認
+#show port-security interface [インタフェース名]
+
+・Port security:ポートセキュリティが有効か(enable)無効か(diseble)　違反時にerror-disableになったらI/Fにてshutdown no shutdownで再起
+・Port Status:現在のポートのステータス
+・Violarion Mode:違反モード
+・Maximum MAC Address:登録できるセキュアMACアドレスの最大数
+・Total MAC Address:このI/Fに登録されているセキュアMACアドレスの数
+・Configured MAC Address:手動で登録されてるセキュアMACアドレスの数
+・Sticky MAC Address:スティッキーラーニングで記録されたセキュアMACアドレスの数
+・Last Source Addresses:最後に受信したフレーム内の送信元MACアドレス
+・Security Violarion Count:セキュリティ違反のカウンタ
+
