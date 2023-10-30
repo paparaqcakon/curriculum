@@ -1,4 +1,4 @@
-CiscoACI(Cisco Application Centric Infrastructure)　ciscoによって提供されているデータデンター向けのSDNソリューション。SDNコントローラにはsisco独自のAPIC(Application Policy Infrastructure Controller)を使用、サウスバウンドAPIにはcisco独自のOpFlexを使用する。
+CiscoACI(Cisco Application Centric Infrastructure)　ciscoによって提供されているデータデンター向けのSDNソリューション。SDNコントローラにはCisco独自のAPIC(Application Policy Infrastructure Controller)を使用、サウスバウンドAPIにはcisco独自のOpFlexを使用する。
 ※ソリューション　解決方法とか手段とか
 OpFlexはOpenFlowと比較してシンプルなネットワークポリシーを定義するだけでSDNを構築できるというメリットがある。
 ※ポリシー　政策,方針,手段　ITとして明確な定義こそないが、おおむね利用条件や運用条件の規定という意味。これに従ってネットワークを構築する。
