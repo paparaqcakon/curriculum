@@ -1,8 +1,0 @@
-DHCPリレー　クライアントのDHCP discoverはブロードキャストで送信される。すなわちDHCPサーバーがネットワーク外にあると送信できない。コレを解消するための機能。
-クライアント側のI/Fに
-(config-if)#ip helper-address [DHCPサーバのIPアドレス]
-を入力すればok
-
-Netconf openflow  opflex restconf　サウスバウンドAPIで機能するプロトコルだが、これらを指してサウスバウンドAPIとすることもある。(知らんけど)
-
-Ospfでネイバーが適切なモードで動作している状態はFull
