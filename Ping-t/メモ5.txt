@@ -15,6 +15,15 @@ HTTPレスポンスヘッダ
 content-encooding:サーバが応答に使用した圧縮形式　br
 content-type:サーバが応答に使用したコンテンツタイプ　text/html;charset=UTF-8
 
+DHCPリレー　クライアントのDHCP discoverはブロードキャストで送信される。すなわちDHCPサーバーがネットワーク外にあると送信できない。コレを解消するための機能。
+クライアント側のI/Fに
+(config-if)#ip helper-address [DHCPサーバのIPアドレス]
+を入力すればok
+
+Netconf openflow  opflex restconf　サウスバウンドAPIで機能するプロトコルだが、これらを指してサウスバウンドAPIとすることもある。(知らんけど)
+
+Ospfでネイバーが適切なモードで動作している状態はFull
+
 REST(REpresentational State Transfer)　ソフトウェアアーキテクチャの１つ　
 ・クライアントサーバ型　要求(リクエスト)をするクライアントと、それを処理して応答(レスポンス)するサーバで構成される。
 ・ステートレス　処理を行うにあたって前提となる状態を保持しない。※リクエストごとに認証情報を送信するということ。
