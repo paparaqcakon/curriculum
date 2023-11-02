@@ -33,3 +33,24 @@ REST(REpresentational State Transfer)　ソフトウェアアーキテクチャ�
 ・コードオンデマンド(任意)　サーバだけでなくクライアント側での処理実行を可能とする。
 
 RESTful API
+
+
+show spanning-treeコマンドでは
+This bridge is root　と記載があったらルートブリッジ。Port〇(FastEthernet〇/〇)となってたらソコがルートポート。RootID以下がルートブリッジの内容で、BridgeID以下が自身の内容。
+
+terminal monitor　vty接続しているときにデバッグのメッセージやログを表示させるためのコマンド。
+
+show interface f 0/1　でF0/1 is down　となっているときは何らかの設定ミスで接続が確立していない。administratively downならシャットダウンしている。
+
+EoMPLS(Ethernet over Multi-Protocol Label Switching) 広域イーサネットの一つ。イーサネットを利用したWAN。
+
+show snmp chassis　ではsnmp-server chassis-idで設定したシリアルナンバーが確認できる。{シャシーが胴体とか車体という意味}
+
+SSHでアクセスするための必要な設定
+・(config)#hostname (config)#ip domain-name
+・(config)#crypto key generate rsa [module 鍵の長さ]
+・(config)#ip ssh version [１か２]
+・(config-line)#transport input ssh
+・(config)#username {ユーザ名} password {パスワード}
+・(config)#line vty {開始vty番号} {終了vty番号}
+　(config-line)#login local
