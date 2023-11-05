@@ -1,0 +1,64 @@
+情報セキュリティポリシー　企業や団体におけるセキュリティ対策の方針や行動指針を示す。以下の3段階で構成される。
+・ポリシー(基本構成)　セキュリティーに対する基本的な考え方や方針
+・スタンダード(対策基準)　セキュリティ確保のためにどのような対策を行うか
+・プロシージャ(実施手順)　対策基準ごとに具体的な手順
+
+DHCPスヌーピング　信頼できないポートのDHCP要求と応答をのぞき見することでなりすましやDHCPサーバへの攻撃を防ぐ。
+DHCPスプーフィング　不正な端末がDHCPクライアントやDHCPに成りすまして攻撃。意図しないIPアドレスを付与して盗聴したり、DHCP要求を大量に送信して妨害したりする。
+
+OSPFの有効化　I/Fからでもできる。
+(config-if)#ip ospf [プロセスID] area [エリアID]
+
+IP SLA(Service Level Agreement)　パケットを生成してネットのパフォーマンスを監視,測定する機能。IP SLAレスポンダ(ターゲットもIP SLAをサポートしているデバイス)を用意することで測定精度が向上し、VoIPの遅延やジッタを測定することも可能になる。
+
+OSPFのコストは基準帯域幅(kbps)÷I/Fの帯域幅(Mbps)
+
+L2スイッチは各I/Fに対してIPアドレスの設定はできない。(VLANをインタフェースとして設定可能)
+L3スイッチはデフォルトではi/Fはスイッチポートになっている。 
+(config-if)#no switchport　と入力することでルーテッドポートとなり、IPアドレスの割り当てができるようになる。
+
+Scalable Group 　SD-Accessファブリックにおけるセキュリティポリシー適用のコンポーネント
+
+マルチベンダSDK(Software Development Kit)　Cisco DNA Centerが非Cisco機器を制御できるように機能を追加するためのソフトウェア開発キット
+
+ポートセキュリティによってerr-disabledになったポートを一定時間後に復旧させる
+(config)#errdisable recovery cause psecure-violation
+
+BPDUガードによってerr-disableになったポートを一定時間後に復旧させる
+(config)#errdisable recovery cause bpduguard
+
+EIGRP　サクセサ　いわゆるプライマリ　最小のFD経路
+フィージブルサクセサ　いわゆるセカンダリ　FD>RDを満たす
+FD(Feasible Distance)　自身から宛先までのメトリック値
+AD(Advertised Distance)もしくは RD(Reported Distance) ネイバから宛先までのメトリック値
+
+ステートフルインスペクション　通信のフローを監視し、不適切な通信を拒否するファイアウォールの機能。
+
+Ansible　マネージドノード　管理してPushする対象のデバイスのこと　
+コントロールノード　Ansibleがインストールされ、処理を実行するデバイスのこと
+
+ロンゲストマッチ　該当のネットワークアドレスを持つ経路が複数ある時に、より長いプレフィクス長の経路が選択される。そもそもネットワークアドレスがどこにも該当しないときには適用されない。
+
+ACLは条件文は下の行に追加されていくが、シーケンス番号を設定しておけば自由に順番を変えられる。
+
+SDNにおけるコントロールプレーンはテーブルの作成やそれの追加をしている。それ以外の処理だったらデータプレーン。
+
+priviledge 権限レベルのこと。0ならユーザモードの一部機能のみ利用可能。１ならユーザモードすべての機能が利用可能。15なら特権モードでセッションを開始する,特権モードすべての機能が利用可能。
+
+(config-line)#access-class　vtyポートに対してACLを設定するためのコマンド
+(condig-if)#ip access-group　I/Fに対してACLを設定するためのコマンド
+
+トランクポートかどうかを確認するコマンド
+show interfaces status　VLANの項目がtrunkであればトランクポート
+show interfaces trunk　表示されるポートはすべてトランクポート
+show vlan　　Portsの項目にないポートがトランクポート
+show interfaces switchport　Operetional Mode trunk　であればトランクポート
+
+名前付き拡張ACLの作成コマンド
+(config)#ip access-list extended [ACL名]
+(config-ext-nacl)#permit [IPやTCP] [送信元アドレス] [宛先アドレス] eq [プロトコル名]
+
+ASA(Adaptive Security Appliance) Ciscoが提供する製品の一つ。ファイアウォールやVPNなどのセキュリティ機能を提供する。
+
+不等コストロードバランシング　EIGRPの機能の一つ。メトリックが等しくない経路での負荷分散。
+EIGRP　自身が属しているAS番号内の経路をInternal(内部)、他のAS番号に属している経路やEIGRP以外のルーティングプロトコルで学習した経路をexternal(外部)として識別。ネイバテーブル,トポロジテーブル,ルーティングテールの３つを保持する。IPだけでなくNovell IPXやAppleTalkのルーテッドプロトコルもサポート。
