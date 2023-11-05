@@ -1,0 +1,21 @@
+IPv4射影アドレス　::FFFF:[IPv4アドレス]　この形態をすることでIPv6とIPv4のノード間で通信を可能とする。先頭80ビットが0となっている。
+
+DMVPN(Dynamic Multipoint VPN)　複数の拠点を接続するVPNの設定作業を簡略化するCisco独自のVPN設計。mGRE,NHRP,IPsecから構成される。ハブアンドスポーク構成をとり、スポーク拠点間の通信時は動的にGRE over IPsecトンネルを作成できるためはあぶるーたの暗号化にかかる処理負荷を軽減できる。
+mGRE(Multipoint GRE)　1vs多で接続可能なGREトンネル。
+NHRP(Next Hop Resolution Protocol)　ある通信のネクストホップとなる宛先IPアドレスを解決するためのプロトコル。
+
+
+仮想サーバ→vNIC→vSwitch→pNIC→物理ネットワーク　　この順に接続される
+
+イーサネットWAN　広域イーサネットとも。LANケーブルを使用する。IPを利用する。専用線よりも高速。EoMPLSとも。
+※専用線はT1なら1.5Mbps
+
+MIC(Message Integrity Check)改ざん検出。WPA1,2,3でそれぞれMicheal,CBC-MAC,GMACというアルゴリズムを使用する。
+
+SDNコントローラ　APIC,APIC-EM
+SDNソリューション　Open SDN,ACI,EPIC-EM
+
+(config)#router ospf []
+(config-router)#default-information originate [always]　OSPFによるデフォルトルートをアドバタイズするためのコマンド。alwaysなしだと、事前にスタティックルートでもいいのでデフォルトルートを作成しておく必要がある。alwaysがあるとこのコマンドでデフォルトルートが設定できる。
+
+RADIUSは認証と認可が統合されているが、TACACS+では認証,認可,アカウンティングがすべて独立しているTACACS+はCisco独自。
