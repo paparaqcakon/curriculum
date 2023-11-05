@@ -32,7 +32,7 @@ REST(REpresentational State Transfer)　ソフトウェアアーキテクチャ�
 ・階層構造　データや処理ごとに階層構造をとり、それぞれが独立している。
 ・コードオンデマンド(任意)　サーバだけでなくクライアント側での処理実行を可能とする。
 
-RESTful API
+RESTful API　RESTをもとにしたAPI　HTTPは相性が良いため多くのREST APIで利用される
 
 
 show spanning-treeコマンドでは
