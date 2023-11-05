@@ -1,0 +1,5 @@
+CCNA総まとめメモ
+
+ワイルドカードマスクはACLとOSPFの時だけ使う
+
+hellloパケットはSTP,OSPF
