@@ -1,0 +1,75 @@
+OSPF デフォルトではhelloが10秒　deadが40秒
+
+IPv6でスタティックルート設定時にネクストホップの代わりにリンクローカルアドレスを利用できる。その時は必ず出力I/Fを指定する。
+
+bandwidth　で表示される値の単位はKbps　
+auto-cost reference-bandwidth　1000 で登録する基準帯域幅の単位はMbps
+仮にbandwidth　1000000　なら100Mbpsとなり、コストは10となる
+
+DHCPサーバのもつDHCPアドレス範囲はshow ip dhcp pool　show run どちらでも確認できる
+
+Cisco DNA Centerに情報通知を行うのは　SNMP,Syslog
+NETCONF,RESTCONFはSBIだが、ネットワーク機器を制御するためのプロトコル
+
+拡張ACLは送信元に最も近いI/Fに設定するべきだが、条件によってはその限りではない。(別ルートからのアクセスにも適用させるため)
+
+CRUD動作のUはHTTPリクエストメソッドでは　PUT{置き換え更新}とPATCH{変更更新}にあたる
+
+EAPの認証方式
+・LEAP　Cisco独自　IDとパスワードを使ってクライアントとサーバが相互に認証 
+・EAP-FAST　クライアントとサーバがPAC(Protected Access Credential)を使用して相互に認証する　LEAPより高セキュリティ
+・EAP-TLS 　クライアントとサーバが電子証明書によって相互に認証する　EAP-FASTより高セキュリティ
+・PAEP　クライアントはIDとパスで認証　サーバは電子証明書で認証　EAP-FASTと同程度のセキュリティレベル
+
+NTPによる時刻同期状況を確認
+#show nt status　もしくは　#show ntp associations　
+statusに表示されるstは同期先　associationsに表示されるstratumは自身
+
+SNMPv3　メッセージの完全性　認証　暗号化の機能が追加されている
+
+show interfaceにて
+late collision　duplex不一致だと半二重側でこのカウンタが増加する
+CRC　duplex不一致で全二重側でこのカウンタが増加する。コリジョン発生やNIC不良でも増加する。
+
+Cisco Meraki　自立型APをはじめとしたネットワーク機器の設定や管理をクラウド上で行うシステム。通常初期設定はコンソールケーブルを使って行うが、merakiがあるとネット接続だけで完了する。merakiのクラウドにアクセスすることでGUIで操作できる。スイッチやルータも対応している。
+
+ダイナミックVLAN　MACアドレスやアカウントなどVMPSデータベースやRADIUSサーバに事前に登録しておくことで、接続するホストやポートが変わっても同じVLANを自動で割当できる設定。
+
+DTPはポート同士でアクセスかトランクかをネゴシエートで動的に変更するやつ
+VTPはトランスペアレントとかサーバモードとかのやつ
+
+show ip protocols　networkコマンドで設定した内容(OSPFを有効にしたネットワークアドレスとワイルドカードマスク)を確認するコマンド
+show ip interface　ではospfが有効になっているI/FとIPアドレスは確認できるがワイルドカードはわからない
+
+ディスアグリゲーション　SDNにおけるコントロールプレーンとデータプレーンの分離や、仮想化によるハードウェアとソフトウェアの分離など機能ごとに分離する考え方や技術。現代ネットワークのトレンド。
+
+DHCP　ポート名はbootps 67番サーバ　bootpc 68番クライアント
+
+HSRP プリエンプション　現在の状態によらずプライオリティ値の高いルータをアクティブとさせる
+(config-if)#standby [グループ番号] preempt [delay{minimum秒 or reload秒 or sync秒}]
+
+PVST,RapidPVSTはCisco独自　　VLANごとにインスタンスを形成する
+MSTPは標準化されている　複数のVLANで一つのインスタンスを形成する
+
+ RーーSW
+ \   |　この時ルータのインタフェースごとにネットワークアドレスは当然変える必要がある。ただしスイッチ同士はデータリンクしているので普通にpingが通る。
+  \　|
+   SW
+
+EIGRP　show ip routeの画面では　
+D  192.168.4.0/24 [90/309760] via 192.168.2.2　00:01:13 FastEthernet0/0
+D  192.168.5.0/24 [90/309760] via 192.168.3.2　00:01:14 FastEthernet0/0
+という表示になり、309760がメトリックとなる。メトリックが同じなら、時間が異なっていても両方のルートを利用して負荷分散する。
+
+OSPFのDR選出のためのプライオリティは0~255で指定できる。デフォルトは１。プライオリティが同じならIPアドレスの値が大きいものがDR
+
+CAPWAP Discovery Request　LAPが初めて接続したWLCに対して登録するために送信するメッセージ　WLCはResponseを返信する。
+CAPWAP Join Request　Discoveryの返信を確認したら送信する加入リクエスト。　問題なければWLCはResponseを返信する。
+
+WDS(Wireless Distribution System) AP同士を無線接続する機能。中継器として使うことができ、クライアントだけでなく別のLANとも接続できる。
+
+Ansible　プレイブックというロジックにしたがう。タスクやプレイから構成される。
+
+ルーティングにてAD値は0~255まで設定できるが、255は到達不能としてその経路は使用できなくなる。
+
+APIC-EMやSD-AccessなどがSBIにTelnet,SSH,SNMPを利用する。
