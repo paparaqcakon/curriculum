@@ -1,0 +1,72 @@
+show dhcp lease　クライアントが自身に割り当てられているIPアドレスやそのリース期間,DHCPサーバのIPアドレスなどを確認するコマンド。
+Temp IP addr　DHCPによって割り当てられたアドレス。　
+Temporary 一時的という英単語
+
+プロトコルナンバー　拡張ACLにおいて、チェック対象となるプロトコルを指定する箇所へtcpやicmpなどの名称の代わりに使える番号のこと
+・ICMP:1
+・TCP:6
+・UDP:17
+・EIGRP:88
+・OSPF:89
+
+VLANホッピング　本来アクセスできないVLANにアクセスする攻撃。ダブるタグによるものと、DTPによるものがある。DTPではアクセスポートを不正にトランクっポートにして全LANと通信可能にする攻撃。
+
+IPsec トランスポートモードはIPヘッダ以外の暗号化をする。　トンネルモードはIPヘッダを含めたすべてのパケットを暗号化する。
+
+コンソールパスワードは　コンソール接続するときのユーザモードにログインするときに要求される。
+
+ESSIDは大文字小文字やハイフンなどを区別する。またBSSIDではAPにアクセスすることはできない。
+
+(config)#ip dhcp excluded-address [開始アドレス] [終了アドレス]　DHCPプールから除外するアドレス設定コマンド。
+
+EIGRP　ルーティングテーブルに乗るコードは　D　※EXがついているのは再配送で学習した外部ルートのこと。
+
+ローカルEAP認証　WLCを認証サーバとして使用する。WLCのローカルデータベースを使用するため外部サーバを用意する必要がなくなる。GUIで設定ができ、SecurityタブのLocal Net Usersからユーザ作成し、ここで設定したユーザ名とパスワードで認証する。
+
+HSRP　アクティブルータがダウンしてもスタンバイルータが同じ仮想MACアドレスを使用してトラフィック処理をする。
+
+DNSルートサーバ　同じIPアドレスが割り当てられ、エニーキャストアドレスとして運用することで冗長化による耐障害性の向上やサーバの物理的な分散配置が可能
+
+PoE(Power of Ethernet)
+・auto 　PDの検出有効　検出後に電力割り当てするため余裕がないときは給電されない
+・atatic　PDの検出有効　検出前から電力割り当てするため絶対に給電を保証する
+・never　PDの検出無効　給電しない
+(config-if)# power inline [auto static never]　特定のPoEを変更するコマンド
+
+(config)#router ospf [ID]
+(config-if)#dafeult information originate [always]　OSPFでのデフォルトルートをアドバタイズするためのコマンド
+
+#show ip ospf neighbor
+#show ip ospf interface 　両方ルータに設定されたプライオリティが確認できる
+
+1000BASE-LX/LH (SMF) 10km
+1000BASE-ZX (SMF) 約70km
+
+(config-if)# ip ospf priority [0~255]　プライオリティ変更コマンド
+
+(config-if)#ip dhcp snooping limit rate [1秒あたりに受信可能なパケット数]
+
+OSPFではdフォルトのネットワークタイプはBROADCAST。Point-to pointに変更も可能。
+
+オーバーヘッド　付加処理のこと...ヘッダのこと？
+
+標準ACL　1~99 1300~1999
+拡張ACL　100~199　2000~2699
+
+(config-if)# description ~~　説明文を付加するコマンド
+
+トランスポート層　通信の信頼性を実現する
+
+AAAの認証設定　指定可能　login,PPP,enable,dot1x
+radiusやtacacsはmethod種類
+
+ポートセキュリティはアクセスポートとトランクポートに設定可能
+
+VLAN間ルーティング　ルータを経由することで、異なるVLANIDとも通信ができるようになる
+
+HTTPステータスコード
+情報レスポンス　１００番台
+成功レスポンス　200番台
+リダイレクト　３００番台
+クライアントエラ　400番台
+サアーバエエラー　500番台
