@@ -1,0 +1,24 @@
+http://api.example.com/api/v1/system/hostname?region=east
+URIが上記の時
+http　使用するプロトコル
+api.example.com　APIを提供するホスト名　もしくはIPアドレス
+/api/v1/system/hostname　APIのリソース名
+ip=10.0.0.1&region=east　APIに渡すパラメータ
+
+show ip ospf　ではDR,BDRの確認ができない
+show ip ospf neighbor か　show ip ospf interface　を使う
+
+GRE over IPsec VPN　はIPsecの通信モードではなくただ組わせてVPNを構築する方法のこと。
+トランスポートモード　エンドツーエンドの通信時ではこちらを利用する
+トンネルモード　ネットワーク間でのVPNで利用する。
+
+Fast SSID Change あるSSIDに接続しているクライアントが別のSSIDに素早く切り替える機能。デフォルトでは無効。
+Fast Transition　高速ローミングを可能にする機能。
+
+clock set 22:11:00 8 Jun 2021　システムクロックの手動設定
+calendar set 22:11:00 30 10 2021　ハードウェアクロックの手動設定
+
+Ansibleの　タスクはYAML形式で記述され、モジュールはPythonで記述する。
+
+対向のduplex不一致でも一応通信は可能でstatusとprotocolはup/upとなる。ただしlate collisionが増加する。
+
