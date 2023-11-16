@@ -1,0 +1,42 @@
+ScalableGroup SDAccessファブリックにおけるセキュリティポリシー適用のコンポーネント。ユーザやネットワークをグループとして定義し、どのネットワーク機器に設定するか、どのような設定をするかということは一切考えず「どのグループからどのグループに通信は許可する」というポリシーを指定するだけで必要な設定はすべてCiscDNA CenterからSDAccessファブリックに反映される。
+
+Discarding　　STPでいうDisable,Blocking, Listeningをまとめたもの
+
+AP　sensorモード　　無線LANクライアントと同じように動作し、接続に関する問題をリアルタイムに検出する。検出した問題をCiscoDNACensterに送信する。IT管理者はCiscoDNACenterを通じて検出された問題の分析とトラブルシューティングを行う。これによりリアルタイムで無線LANネットわーっくの問題を特定し迅速に解決することが可能になる。　
+
+ルータIDを手動設定する場合、コマンドを入力するだけでは反映されない。OSPFのルータIDはOSPFプロセス起動時に決定するため、ルータIDを変更するためにはOSPFプロセスを再起動かルータを再起動する必要がある。
+clear ip ospf proccess　　OSPFプロセス再起動
+
+ssh  <-l ユーザ名> <-v バージョン> <-p ポート番号>　｛宛先IPアドレス or ホスト名｝
+※-l -v -pは順不同
+
+NETCONFやRESTCONFをサポートしない場合でもCisco DNA CenterはSSH/Telnet/SNMPで制御できる
+比較的新しい機器ではNETCONF/RESTCONFを使用する
+
+ポリシング　パケットを破棄する　パケットに再マーキングしてレート越えのパケットであることを判断できるようにしておき、複層状態を検知したら再マーキングされたパケットを優先した破棄するといったことをする。
+
+CRCだけが増加しているときはケーブルの故障を疑う
+
+aaa authorizationexec LIST2 none　この場合、認可は行わないためログインした直後は通常通りユーザモードとなる
+
+SNMPエージェントとマネージャが情報をやり取りするときはオブジェクトIDを指定してやり取りする。オブジェクト名は関係ない。
+
+SWIM(Software Image Management)　CiscoDNACenterでネットワーク機器のファームウェアバージョンの管理をする機能。従来型ネットワークと比べてバージョン管理とアップデートが容易になるというメリットがある。
+
+公開鍵認証でSSH接続したい
+hostname
+ip domain-name 
+crypto key generate rsa
+ip ssh pubkey-chain　→　username　　公開鍵認証で用いるユーザ名を登録
+ip ssh pubkey-chain　→　username　→　key-string　PCの公開鍵を登録
+transport input ssh
+login local
+
+iBGP　同一ASのネイバとの経路情報交換に使う直接接続しなくてもよい。AD値は200
+eBGP　異なるASのネイバとの経路情報交換に使うBGP直接接続する必要がある。AD値は20
+
+TCPヘッダには宛先,送信元ポート番号があり、パケットヘッダには宛先,送信元IPアドレスがある
+
+ネームリゾルバ　名前解決を行うソフトウェア　単にリゾルバとも　DNSを用いて名前解決をすることはDNSルックアップという
+
+コミュニティストリング　SNMPでグループに設定するコミュニティネーム
