@@ -1,0 +1,15 @@
+～～～～～注意～～～～～
+HSRPはコマンド上ではstandbyとなる
+
+仮想IPアドレスの設定では{address}は入れない！！
+～～～～～注意～～～～～
+
+HSRPの動作状況を確認する
+#show standby
+
+HSRPの設定
+(config-if)#standby 1 ip 10.1.1.1
+
+HSRPで現在のアクティブルータよりこのルータがプライオリティが高ければアクティブにさせる
+(config-if)#standby 1 preempt
+
