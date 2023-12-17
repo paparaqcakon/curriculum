@@ -1,0 +1,74 @@
+HTTPステータスコード
+情報レスポンス　リクエストを受理し処理を継続している　(例)100　現時点で問題なし
+成功レスポンス　リクエストを理解し処理された　(例)200　リクエストが成功した
+リダイレクト　要求されたリソースの代わりに新しいリソースを使用した　(例)　301リクエストしたリソースが恒久的に移動した
+クライアントエラー　クライアントが送信したリクエストに問題があった　(例)　404　リクエストしたリソースが見つからない
+サーバエラー　サーバ上のエラーでリクエストの処理に失敗した　(例) 500　サーバの内部でエラーが発生した
+
+専用線　WANで使うシリアルインタフェースを利用するケーブル
+T1　1.544Mbps　
+T2　6.312Mbps
+T3　44.736Mbps
+T4　274.176Mbps
+
+Cisco DNA Center　IBNの中核となるアプライアンス。SD-Accessのコントローラとして動作する。セキュリティアプローチはゼロトラスト,何も信用せずにネットワーク内のすべてを監視しすべてを検証する。Cisco AIによるエンドポイント分析では、エンドポイントの移乗動作の検出から隔離プロセスを自動で行う。
+
+DHCPスヌーピング　
+ip dhcp snooping verify mac-address を設定するとmacアドレス検証する。
+no ip dhcp snooping information option でオプション82を無効にする
+※オプション82　スイッチがDHCP要求を受信したとき、そのパケットにポート情報を付加してDHCPサーバに転送する機能。
+
+WPA2の暗号化方式はCCMPが必須でTKIPは機器によって任意で使用する。
+
+(Config-if)#spanning-tree portfast　はアクセスポートをポートファスト有効化させるコマンド。末尾にtrunkをつけるとトランクポートの場合でも可能。
+
+宛先や送信元MACアドレスはルータを経由するごとに変化していくが、あいだにスイッチがあってもそのスイッチは宛先MACとはならない。(スイッチにアクセスする場合は宛先がスイッチのMACアドレスになる)
+
+show ip nat translation　natテーブルを参照するコマンド
+ahow ip nat statistics　natによるアドレス変換の統計を表示するコマンド
+
+IPv6のグローバルユニキャストアドレスは階層的に割り当てられているため、ルーティングの集約が可能であり、インターネット上で通信が効率化されている。
+
+Cicso AMP(Advanced Malware Protocol)　Ciscoの提供するマルウェア対策製品
+Cisco Meraki　ネットワークの管理をクラウド上で行うシステム
+
+SNMPマネージャがSNMPポーリングというrequestを送信することでエージェントが応答する。
+SNMPトラップはエージェントが自発的にマネージャに送信する情報。
+MIB(Management Information Base)　SNMPで読み書きできる管理情報の集合体。
+NMS(Network Manegement System)　SNMPマネージャのこと
+
+EIGRP Cisco独自のプロトコル。DUAL(Diffusing Update Algorithm)を使用する
+・宛先ネットワークから自身まですべてのネイバー経由のFDを算出
+・宛先ネットワークから自身までのFDのうち、最も小さいFDになるネイバーをサクセサとする
+・サクセサ(プライマリ)のFDと各ネイバーのRDを比較し、FD>RDとなるネイバーをフィージブルサクセサ(バックアップ)とする
+・サクセサをネクストホップとする経路をルーティングテーブルに載せる
+FD(Feasible Distance)　ローカルルータから宛先ネットワークまでのメトリック値
+AD(Advertised Distance)もしくはRD(Reported Distance)　ネイバールータからネットワークまでのメトリック値
+
+vSwitch　サーバ上のソフトによって仮想的に作成するL2スイッチ。vNIC同士やvNIC,pNICを接続する。
+
+(config)#lldp run　デバイスでLLDPを有効化する
+(config-if)#lldp transmit　このI/FでLLDPの送信を有効化
+(config-if)#lldp receive　このI/FでLLDPの受信を有効化
+
+スタティックルートをデバイスに向けて設定するときは、サブネットマスクは255.255.255.255でホストルートとする。(たとえそのネットワークが/24や/16でも)
+
+DNSはIPアドレスとドメインの対応が　1vs多,多vs1,1vs1　どれでもok
+
+IntServ(Integrated Services)　アプリケーションのフローごとにQoSを提供する。
+RSVP(Resource reSerVation Protocol)　リソース予約プロトコルによってフローごとに帯域を予約する。
+
+暗号化済みのパスワードを他のデバイスにも転用したいときは、暗号化後の文字列をそのままコピーして別機器に使える。こうすることでショルダーハッキングやトラッシングを防ぐ。
+secret 5　MD5による暗号化済みのパスワード文字列
+secret 8　PBKDF2による暗号化済みのパスワード文字列
+secret 9　SCRYPTによる暗号化済みのパスワード文字列
+
+
+Cisco AnyConnect Secure Mobility Client 略してCisco Anyconnect　リモートアクセスVPNのCisco製品　ASAというciscoのファイアウォールとはSSL/TLS VPNを使用して接続する。
+
+コンソールに送信するSyslogメッセージの重大度はデフォルトでは７。つまりデバッグを含めたすべてのメッセージが送信される。
+
+Cisco Firepower　NGFW(Next Generation Fire Wall)とNGIPS(Next-Generation Intrution Prevention System)を統合,搭載したデバイス。
+
+NAT　内部ローカルアドレスはACLで定義し、内部グローバルアドレスはアドレスプールで定義する。
+PAT(Port Address Translation)　内部ローカルとグローバルを対応付ける方式。
