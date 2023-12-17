@@ -1,0 +1,31 @@
+～～～～～注意～～～～～
+showコマンドの中でもdhcp leaseだけは[ip]がつかない！！！
+show ip dhcp pool
+show ip dhcp conflict
+
+DHCPのプールにて範囲指定はIPアドレスとサブネットマスクだけ！！！（開始アドレス、終了アドレスという形ではない！）
+
+DHCPのプールは(dhcp-config)で範囲を指定するが、除外するときだけは(config)で設定する
+この時はサブネットマスクを使わずに開始 終了アドレスを指定する
+
+～～～～～注意～～～～～
+
+
+DHCPプールを作成する
+(config)# ip dhcp pool Pingt
+(dhcp-config)#network 192.168.10.0 255.255.255.0
+
+DHCPによって割り当てられたIPアドレスの情報を確認
+show dhcp lease
+
+クライアントにて IPアドレスをDHCPサーバから自動的に取得できるようにする
+(config-if)#ip address dhcp
+
+DHCPリレーエージェントの設定する
+(config-if)#ip helper-address 192.168.1.1
+
+DHCPプールのうち 192.168.10.16~192.168.10.31を除外する
+(config)#ip dhcp pool Pingt
+(dhcp-config)#network 192.168.10.0 255.255.255.0
+(dhcp-config)#exit
+(config)#ip dhcp excluded-address 192.168.10.16 192.168.10.31
