@@ -1,0 +1,43 @@
+～～～～～注意～～～～～
+rsa鍵は crypto key general　から始まる
+
+sshでログインするときは　-v -l　とハイフンを入れるが数字やユーザ名の前にはハイフンなし！！！
+
+ユーザアカウント作成時にパスワード暗号化する場合は[password]ではなく[secret]
+
+privirege　←スペル間違えない！！　
+
+～～～～～注意～～～～～
+
+コンソールパスワードの設定
+(config)#line console 0
+(config-line)#password ccna
+(config-line)#login
+
+ユーザアカウントの作成
+(config)#username admin privilege 15 password pingt
+
+SSH接続にローカル認証を使用する
+(config)#username admin password pingt
+(config)# line vty 0 4
+(config-line)#transport input ssh
+(config-line)#login local
+
+パスワードをsha256で暗号化してユーザアカウントを作成する
+(config)#username admin algorithm-type sha 256 secret pingt
+
+パスワードをすべて暗号化する
+(config)#service password-encryption
+
+RSAホスト鍵を2048ビットで生成する
+Router(config)#hostname RouterA
+RouterA(config)#ip domain name ping-t
+RouterA(config)#crypto key generate rsa modulus 2048
+
+sshでリモート接続する
+#ssh -v 2 -l sshuser 192.168.1.2
+Password:cisco
+
+telnetでリモート接続する
+#telnet 192.168.1.2
+Password:cisco
