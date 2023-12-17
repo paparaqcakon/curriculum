@@ -1,0 +1,6 @@
+AAAを有効化
+(config)# aaa new-model 
+
+AAA ログインに対する認証する　リストはデフォルト　RSDIUSサーバ利用　ローカルデータベース利用
+(config)# aaa new-model
+(config)#aaa authentication login default group radius local
