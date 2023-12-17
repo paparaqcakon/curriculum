@@ -1,0 +1,87 @@
+Cisco PI(Prime Infrastructure) Ciscoの提供するネットワーク管理ツール　管理対象となるすべてのデバイスを1つの画面から設定管理することが可能。ネットワークの可視化機能も持っている。デバイスの動作状況やネットワークトラフィックの状況,無線LANの電波状況などを視覚的に確認することが可能になる。
+
+AP　中央スイッチング　　LAPとスイッチの間はアクセスリンク　WLCを介してデータ転送を行う
+ローカルスイッチング　LAPとスイッチの間はトランクリンク　APが自立型もしくはFlexConnectで動作している。
+
+DMVPN(Dynamic Multipoint VPN) ハブアンドスポーク構成でVPNを動的にGRE over IPsecトンネルを作成できるためハブルータの処理を軽減できる。
+
+show ip interface　では　プライオリティ,ルータID,ネットワークタイプを確認できる　　ワイルドカードはshow ip protocol
+
+Per Hop Behavior　DSCP値に応じてどのような優先度で転送処理を行うかの定義
+DF(Default Forwarding)　ベストエフォート
+CS(Class Selector)　　DSCPとIPPの互換用マーキング。
+AF(Assurerd Forwarding)　優先度と破棄レベルの組み合わせで12段階を指定できるマーキング。
+EF(Expedited Forwarding)　最優先で処理したいパケット用のマーキング。
+
+(config)# ip dns server
+(config)# ip host [ホスト名] [IPアドレス]　　DNSサーバとして機能させるコマンド
+
+(config)# ip domain lookup
+(config#ip name-server [IPアドレス]　　DNSクライアントとして機能させるコマンド。DNS参照先のIPアドレスを指定する。
+
+SPoG(Single Pane of Glass)　単一の管理ツールから様々な危機へ接続し管理を行うこと。1枚の窓ガラスに必要な情報がすべて漆出されているというような意味から。
+
+PAT　193.168.1.1:9　などの表示の「:9」はポート番号のこと
+
+拡張ACLでプロトコル名が抜けているとコマンドとして受け付けない
+
+EIGRPのメトリック算出法　(帯域幅+遅延)x256
+
+show interfaceにて　ケーブルやNICの故障で増加しうるもの。FCS-Err,Runts,Giants
+
+WLCのサービスポートはSSHやTelnetが利用される。DHCPを利用してIPアドレスの取得や割り当ても行う。
+
+レイヤ3のEtherChaannelではno switchport　コマンドを「利用する
+(config)#interface port channel 　[チャンネル番号]　論理インタフェース作成
+(config-if)# no switchport　　論理インタフェースをレイヤ3モードにする
+(config-if)# ip address [IPアドレス] [サブネットマスク]　　論理インタフェースにIPアドレスを設定
+(config-if)#no switchport　　物理インタフェースをレイヤ３モードにする
+(config-if)# channel-group [チャンネルグループ番号] mode [on/auto/desirable/passive/active]　物理インタフェースにチャンネルグループを設定
+
+PHB(Per Hop Behavior)　DSCP値に応じてどのような手脳処理を行うかの定義。EF,AFなど。
+
+関連付け要求フレーム　WLANでクライアントがAPに接続の要求をする
+再関連付け要求フレーム　ローミングするときに別のAPに対して接続の要求をするフレーム
+
+スタティックルートや直接接続の場合でもUP/UPでなければルーティングテーブルには乗らない
+
+WPAエンタープライズ192bitモード　WPAでAES暗号カギを128,192,256bitのいづれかで設定する。GCMPが必須。
+
+(config)#access-list 125 permit tcp 192.168.1.1 0.0.0.0 eq 3200 192.168.5.5 0.0.0.0 eq 80
+上記のようにACLでは使用プロトコルだけでなく送信元のポート番号の指定もできる
+
+スプーフィングはSHCPでもARPでも　送信元のIPやMACを偽装して盗聴しようとする攻撃。宛先は変えない。
+
+ACLの作成はaccess-list　名前付きの場合はip access-list それをI/Fに適用するときはip access-group　
+
+DNSサーバは問い合わせに対する回答を一時出来にサーバ内に保管しておき、同じ問い合わせに対してすぐ対応できるようにしている。
+
+シングルホーム　単一のISPとだけ接続する
+マルチホーム　複数のISPと接続する
+デュアルホーム　単一のISPと2本以上のリンクで接続する
+
+ToS(Type of Service) IPv6ヘッダのうちの一つ8bit　IPPやDSCPがこの領域を利用する
+IPP(IP Precedence)　ToSのうち先頭3ビットだけを利用してマーキングを行う
+DSCP(Differentiated Service Code Point)　Tosのうち先頭から6ビットまでを利用してマーキングを行う。
+
+PoE　15wまで　2対まで
+PoE+ 30wまで　2対まで
+UPoE(Universal PoE) 60wまで　4対
+
+拡張ACLで使えるプロトコルナンバー　
+ICMP　１
+TCP　６
+UDP　１７
+EIGRP　８８
+OSPF　８９
+
+コンソールやvtyログインするときのパスワードは　aaaで定義したものが優先される。
+
+(config-if)は物理インタフェース　
+(config-line)は仮想インタフェース
+
+JSON　オブジェクトは｛｝で囲まれる　配列は[]で囲まれる
+
+インテントAPI　Cisco DNA CenterのNBI　一般的にはRESTfulAPIを利用しHTTPメソッドでネットワークを制御する。
+
+音声VLANがどのVLANIDかは show interface switchportでないと確認できない
