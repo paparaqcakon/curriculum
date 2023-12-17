@@ -1,0 +1,22 @@
+ifconfig・・・ネットワークインタフェースに設定されたIPアドレスやサブネットマスクなどの情報を表示する
+Linux OSにログインし　/sbin/ifconfig　と入力する
+
+route・・・ルーティングテーブル情報を表示する　デフォルトゲートウェイの確認もできる
+
+
+
+ICMP・・・パケット送信に異常が発生したときにエラーメッセージや制御メッセージの通知に使われるプロトコル
+タイプコード
+　０　　　エコー応答　Echo Reply!
+　３　　　到達不能　Destination Unreachable
+　８　　　エコー要求　Echo Request
+　11　　　時間超過　Time Exceeded
+
+通信経路を確認できる手段として[traceroute]だけでなく[tracepath]が存在する。
+若干表示される内容が異なる。
+
+TELNETを利用する場合、リモート先ホストに[inetd]または[xineted]プロセスが起動しているか確認する。
+in.telnetサービスは一般的に[ineted][xineted]プロセスに含まれている　ps aux|grep ineted|grep x　コマンドで確認できる
+
+telnet IPアドレス（もしくはホスト名）　を入力で利用可能
+パスワードを要求されるので入力するとリモートアクセスできる　この状態でpa aux コマンド実行すると[in.telnetd]プロセスが起動しているのを確認できる
