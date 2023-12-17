@@ -1,0 +1,56 @@
+構成管理ツール
+PUSH型　サーバから機器へ設定を行う方式。機器側がエージェントレスなので、サポート対象機器が限定されにくい。
+PULL型　設定対象の機器がサーバーにアクセスして自身を設定する方式。機器側にエージェントが必要のため、それが動作しない機器はサポートしない。ただし、エージェント機能を外部のサーバで実行し、そこから対象機器にPUSH型で設定を行う外部エージェント方式もある。
+
+WPA3　暗号化方式はGDMP.CCMP。　PSKは対応していないし、そもそもこれは認証方式のひとつ。WPA3パーソナルの認証方式はSAE。
+
+ファシリティ　syslogの重要度を示す値。
+
+HTTPリクエストヘッダ　データ本体とは別の、コンテンツタイプや圧縮方式などの補足情報。
+accept:クライアントが理解できるコンテンツタイプ　text/html,application/json
+accept-Encoding:クライアントがサポートする圧縮形式　gzip,deflate,br
+accept-Language:クライアントが理解できる自然言語　ja,en-US
+
+HTTPレスポンスヘッダ
+content-encooding:サーバが応答に使用した圧縮形式　br
+content-type:サーバが応答に使用したコンテンツタイプ　text/html;charset=UTF-8
+
+DHCPリレー　クライアントのDHCP discoverはブロードキャストで送信される。すなわちDHCPサーバーがネットワーク外にあると送信できない。コレを解消するための機能。
+クライアント側のI/Fに
+(config-if)#ip helper-address [DHCPサーバのIPアドレス]
+を入力すればok
+
+Netconf openflow  opflex restconf　サウスバウンドAPIで機能するプロトコルだが、これらを指してサウスバウンドAPIとすることもある。(知らんけど)
+
+Ospfでネイバーが適切なモードで動作している状態はFull
+
+REST(REpresentational State Transfer)　ソフトウェアアーキテクチャの１つ　
+・クライアントサーバ型　要求(リクエスト)をするクライアントと、それを処理して応答(レスポンス)するサーバで構成される。
+・ステートレス　処理を行うにあたって前提となる状態を保持しない。※リクエストごとに認証情報を送信するということ。
+・キャッシュの制御　レスポンスの情報を一定期間保有(キャッシュ)可能か指定できる。
+・統一されたI/F　リクエストの方法やデータ形式などが統一されている。
+・階層構造　データや処理ごとに階層構造をとり、それぞれが独立している。
+・コードオンデマンド(任意)　サーバだけでなくクライアント側での処理実行を可能とする。
+
+RESTful API　RESTをもとにしたAPI　HTTPは相性が良いため多くのREST APIで利用される
+
+
+show spanning-treeコマンドでは
+This bridge is root　と記載があったらルートブリッジ。Port〇(FastEthernet〇/〇)となってたらソコがルートポート。RootID以下がルートブリッジの内容で、BridgeID以下が自身の内容。
+
+terminal monitor　vty接続しているときにデバッグのメッセージやログを表示させるためのコマンド。
+
+show interface f 0/1　でF0/1 is down　となっているときは何らかの設定ミスで接続が確立していない。administratively downならシャットダウンしている。
+
+EoMPLS(Ethernet over Multi-Protocol Label Switching) 広域イーサネットの一つ。イーサネットを利用したWAN。
+
+show snmp chassis　ではsnmp-server chassis-idで設定したシリアルナンバーが確認できる。{シャシーが胴体とか車体という意味}
+
+SSHでアクセスするための必要な設定
+・(config)#hostname (config)#ip domain-name
+・(config)#crypto key generate rsa [module 鍵の長さ]
+・(config)#ip ssh version [１か２]
+・(config-line)#transport input ssh
+・(config)#username {ユーザ名} password {パスワード}
+・(config)#line vty {開始vty番号} {終了vty番号}
+　(config-line)#login local
