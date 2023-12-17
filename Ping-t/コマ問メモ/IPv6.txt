@@ -1,0 +1,16 @@
+～～～～～注意～～～～～
+IPv6の有効化ではunicastをつけ忘れない！！！
+～～～～～注意～～～～～
+
+
+IPv6ルーティングを有効にする
+(config)#ipv6 unicast-routing
+
+IPv6アドレスを手動で 2001:db8:1111:2222:3333:4444:5555:6666/64を設定する
+(config-if)#ipv6 address 2001:db8:1111:2222:3333:4444:5555:6666/64
+
+IPv6アドレスでEUI-64を使って　2001:db8:7777:8888::/64のアドレスを設定する
+(config-if)#ipv6 address 2001:db8:7777:8888::/64 eui-64
+
+SLAACを使ってIPv6アドレスを設定する
+(config-if)ipv6 address autoconfig
