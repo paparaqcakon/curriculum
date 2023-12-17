@@ -1,0 +1,40 @@
+～～～～～注意～～～～～
+名前付きACLは名前を指定した次の行からプロトコルやアドレスを指定する
+
+permitの後にプロトコル！！！
+
+名前付きのACLにはipが必要！
+showコマンドにもip必要！！
+
+I/Fにaccess-groupを適用するときは[ip]忘れない！！
+ただしvtyなどの(config-line)でのaccess-classには[つけない]！！
+
+条件文の末尾にlog-inputで一致したときにログを出力できる
+～～～～～注意～～～～～
+
+
+G0/1に適用されているアクセスリストを表示する
+#show ip access-lists interface GigabitEthernet 0/1
+
+作成済みのIPv6のアクセスリストを表示
+#show ipv6 access-lists
+
+標準ACLを作成
+(config)#access-list 1 deny host 192.168.1.100
+(config)#access-list permit 1 any
+(config)#interface etherfent 1 
+(config-if)#ip access-group 1 out
+
+拡張AClを作成
+(config)#access-list 110 permit tcp host 192.168.1.2 host 172.16.1.1 eq 80
+(config)#access-list deny tcp any host 172.16.1.1 eq 80
+(config)#interface FastEthernet 0/1
+(config-if)#ip access-group 110 out
+
+名前付き拡張AClを作成
+(config)#ip access-list extended pingACL
+(config-ext-nacl)#deny tcp host 192.168.1.100 host 192.168.3.100
+(config-ext-nacl)#permit ip any any
+(consif-ext-nacl)#exit
+(config)#interface ethernet 0/1
+(config-if)#ip access-group pingACL in
