@@ -1,0 +1,36 @@
+～～～～～注意～～～～～
+I/F毎のポートセキュリティを確認するときはshow port-securityに続けてI/Fを指定する
+
+I/Fごとに信頼できるかそうでないかのコマンドはtrust かuntrust　　{trustedではない！}
+～～～～～注意～～～～～
+DHCPスヌーピングをvlan1で有効にする
+(config)# ip dhcp snooping
+(config)# ip dhcp snooping vlan 1
+
+G0/1でDHCPスヌーピングをtrustedにする
+(config)# ip dhcp snooping
+(config)# interface GigabitEthernet 0/1
+(config-if)#ip dhcp snooping trust
+
+DHCPのせっていを確認する
+show ip dhcp snooping
+
+DHCPスヌーピングのMACCアドレス検証を有効にする
+(config)#ip dhcp snooping
+(config)#ip dhcp snooping verify mac-address
+
+DHCPスヌーピングのoption82を無効にする
+(config)# ip dhcp snooping
+(config)#no ip dhcp snooping information option
+
+vlan1でDAIを有効にする
+(config)#ip arp inspection vlan 1
+
+DAIを有効にしているインタフェースをtrustedにする
+(config-if)#ip arp inspection trust
+
+ポートセキュリティのMACアドレス最大数を２にする
+(config-if)#switchport port-security maximum 2
+
+スティッキーラーニングを有効にする
+(config-if)#switchport port-security mac-address sticky
