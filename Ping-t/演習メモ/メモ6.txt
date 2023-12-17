@@ -1,0 +1,67 @@
+(config)#ip domain name ○○
+(config)#ip domain list ○○
+上記両方あったら　listの方だけ適用となる
+
+サイト間VPNはIPsec　クライアントVPNはssl/tls
+
+CAPWAPは制御用とデータ用の二つのトンネルを形成する
+
+SDNが中央集中のコントローラに対して、従来型は自律分散型のコントロールプレーン
+
+スパイン＆リーフ層　主にデータセンターで利用。サーバ間通信の低遅延を実現している。
+3階層キャンパス設計では、経由するホップ数が多く遅延しやすい。
+
+API(Application Programing Interface)　アプリケーションなどのプログラミが別のプログラムの機能を利用する際の呼び出し方法を定義したもの。別のプログラムへ接続するためのインタフェース。
+
+ルーテッドアクセス　SD-AccessでのアンダーレイのようにすべてのデバイスがL3で動作するネットワーク構成
+
+中央スイッチング　いわゆる中央集中型APでのWLAN　APの動作モードはLocalもしくはFlexConect
+
+QoS音声トラフィック
+遅延：150ms未満　ジッタ：30ms未満　損失：1%未満
+ビデオトラフィック
+遅延：200~400ms　ジッタ：30~50ms　損失：0.1~1%
+
+MPLS(Multi Protocol Label Switching) L2ヘッダとL3ヘッダの間にラベルというタグを付加する。WAN,VPNで用いられる。マルチプロトコルのため、IPv4,IPv6,Ethernetなどなんでも大丈夫。expという領域でQoSに利用するパケットの優先度を定義できる。
+
+ACLの条件文は上から順に処理される。そのため詳細な条件(一致する対象が少数な条件)を最初に設定しておく
+
+NAT スタティックNATであれば
+(config)#ip nat inside source static 192.168.100.1 172.16.100.1　など入力した時点でNATテーブルに登録される
+一方、ダイナミックNATなら
+(config#ip nat inside source list interface g 0/2 overload　
+と入力したあとにpingなどでデータを送信しないとnatテーブルに登録されない
+
+NAT aclを使った内部ローカルアドレスの指定
+(config)# access-list [番号]　permit　[内部ローカルアドレス] [ワイルドカードマスク]
+グローバルアドレスの範囲を指定
+(config)#ip nat pool [プール名] [開始アドレス] [終了アドレス]　{netmask[]or prefix-length[プレフィクス長]}
+内部ローカルと外部ローカルの対応付け
+(config#ip nat inside source list [ACL番号]　[プール名orインタフェース名]　　末尾にoverloadをつけるとPATになる
+I/Fに対してnatの設定
+(config-if)#ip nat inside　natの内部I/Fにする
+(config-if)#ip nat outside　natの外部I/Fにする
+
+ダイナミックNAT　１つのグローバルアドレスに対して1つのローカルアドレス。そのためグローバルアドレスが不足したらそれ以上にクライアントが外部にアクセスできない。 
+PAT(Port Address Transration)　1つのグローバルアドレスに対して複数のローカルアドレスを対応付ける。同じグローバルアドレスでもポート番号によって分けている。そのためグローバルアドレスの数が足りなくてもクライアントは外部にアクセスできる。
+
+rxload　受信負荷。1/255などで表示され、値が小さいほど負荷が小さいことを示す。syow interfaceで確認できる。txloadは送信負荷
+
+スプリットMACアーキテクチャ　WLANにおいてリアルタイム性が高いものはAPで、そうでないならWLCで処理するアクセス制御
+
+ospfのhello間隔を変更すると、dead間隔も自動で変わる(デフォルトでhelloの4倍になっている)。ただし、deadを手動で変えてもhelloは自動で変更されない。
+
+プライベートWANはクラウド事業者とのVPN接続でセキュリティやQoSの面で優れる
+Intercloud Exchange　上記よりも移行が簡単になるが、事業者との間に別の企業が入っているため、セキュリティの面で劣る。
+
+natによるアドレス変換の統計　show ip address statistics
+
+FQDN(Fully Qualified Domain Name)完全指定ドメイン名
+
+DNSクライアントがサーバやルータに問い合わせしたいとき　
+(config)#ip domain lookup　　名前解決するためのコマンド
+(config)#ip name-server [参照先IPアドレス]
+ip domain name やip domain listを設定しておくと、ドメイン名をさらに省略して名前解決できる
+
+QoSで制御できる４つの項目
+・帯域幅(Bandwidth)要するにデータ量のことbps　・遅延(Delay)　・ジッタ(Jitter)　・損失(Loss)
