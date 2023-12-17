@@ -1,0 +1,51 @@
+経路集約　RIPv2,EIGRP,OSPFで地用できる機能。複数のサブネットワークのルーティングアップデートを１つにまとめることでルーティングテーブルのサイズが小さくなり、コンバージェンス時間の短縮になる。すべてのネットワークアドレスが一致しているプレフィクスの最も大きいアドレスに集約させる。
+
+(config)# ip dhcp snooping　これでDHCPが有効となる
+(config)# ip dhcp snooping verify mac-address でmacアドレスチェックができる。
+
+輻輳管理
+・分類　QoS対象となるパケットを分類する。
+・マーキング　分類されたパケットに優先度識別用の印をつける。
+・キューイング　パケットにつけられたマークを使って、優先度に応じたキューに格納する。
+・スケジューリング　各キューからデータを取り出して送信する。
+
+輻輳回避　RED、WREDのこと
+
+帯域制御　シェービング、ポリシングのこと
+
+ルータは未設定ならhello間隔は同じのためネイバー確立のためには設定する必要がない。
+
+(config)# no lldp  tlv-select management address IPアドレスをlldpによって伝えなくするコマンド
+※TLV(Type Length Value)　種類,長さ,値で構成された可変長のデータ形式。CDPでも利用する。
+
+IPsec　トンネルモード　IPヘッダを含めたパケットの全体を暗号化する。
+トランスポートモード　IPヘッダの暗号化を行わない。
+
+リモートアクセスVPNはSSLVPN限定。　設定が簡単だがセキュリティレベルが低め。
+サイト間VPNはIPsecVPNとSSLVPN両方利用できる。普通はIPsecを利用する。
+
+キューイング
+・FIFO(First-In First-Out)　パケットを受信した順番通りに転送する方式
+・PQ(Priority Queuing)　優先度の高いパケットの転送を優先する方式
+・CQ(Custom Queuing)　各キューに定義したバイト数ずつパケットを転送する方式。キューごとに転送できる最大バイト数を指定できる
+・WFQ(Weighted Fair Queuing)　フローごとにキューを自動で管理する方式。優先度の高いパケットを多めに転送する。
+・CBWFQ(Class-Based WFQ)　プロトコルなどをもとに管理者がクラスという単位でキューを設定する方式。クラスごとに最低保証帯域幅を指定できる。
+・LLQ(Low Latency Queuing)　PQとCBWFQを併せ持つ方式。優先度の高いパケットを最優先で転送しながらも、優先度の低いパケットもある程度転送する。
+
+(config)# ip nat inside source inside static [内部ローカルアドレス] [内部グローバルアドレス]　スタティックNATの設定コマンド
+
+(config-if)#ip ospf oriority 255　　DR,BDR選出のためのプライオリティを手動で設定するときはI/Fに入力する
+
+OSPFのルータID,基準帯域幅,ネットワークコマンドなどルーティングプロトコルの詳細設定は(config-router)#で入力する
+(config)#router ospf [プロセスID]　このコマンドで(config-router)に入れる
+
+IPsec　主なプロトコル
+・AH(Authentication Header) 認証を行う
+・ESP(Encupsulation Security Payload)　認証と暗号化を行う
+・IKE(Internet Key Exchange)　秘密鍵の交換をする
+
+OSPFのイーサネットインタフェースではデフォルトのネットワークタイプはマルチアクセスネットワーク。シリアルインタフェースはデフォルトがポイントツーポイント。
+
+GET VPN(Group Encrypted Transport VPN)トンネルを使用せずにVPN接続を可能にする。KS(Key Server)と呼ばれるセキュリティを管理するルータが通信の暗号,複合化に必要な共有キーを所持している。各VPN拠点のルータがKSからキーを受け取り、そのキーを使用して暗号化された通信を行うためトンネルを使用せずに安全なVPN接続が可能となる。拠点の追加や管理が容易であり、大規模なネットワークに適している。
+
+DMVPN(Dynamic Multiprotocol VPN)サイト間VPNの問題点を解決するために実装するVPNのソリューション。
