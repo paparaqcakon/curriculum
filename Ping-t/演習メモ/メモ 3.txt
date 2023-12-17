@@ -1,0 +1,87 @@
+ospf のプロセスIDは1~65535の中から任意の番号を指定する...。がospfの内部処理のために使っているだけのため、他のルータとIDを一致させる必要はない。
+※EIGRPのAS番号では経路を共有するルータで同じ番号を使う。
+
+ルータID　デフォルトではルータのIPアドレスだが、コマンドから変更可能
+①(config)#router-id 
+②(config)#int loopback 0
+　(config-if)# ip address 
+③(config)# int f 0/0
+　(config-if)# ip address 
+上記すべてを設定している場合①が最も優先度が高く、次点が②。
+
+DR,BDRはプライオリティが最も高い二つ,同値ならルータIDの大きい二つが選出され、それ以外はDROTHERとなり、LSAの無駄な交換を減らす。
+
+MPLS(Multi Protocol Label Switching)　WANで使われる。ラベルがL2ヘッダとL3ヘッダの間にあるため、L3ヘッダを参照せずにデータ転送できる。L3VPNを提供できる。
+
+SSHのRSA鍵は360~4096ビットで選ぶが、推奨は1024以上
+
+リモートルータにログインするときのコマンド例
+ssh -v 2 -l username [リモートルータのIPアドレス]
+
+Intercloud Exchange　各クラウドサービス事業者とプライベートWAN接続し、ユーザ企業ともプライベートWAN接続する。インターネットVPNよりもセキュアかつQoSに優れ、通常のWANよりも移行が容易。ただし利用開始するまでの期間はプライベートWANと同じくらいか？
+
+
+RESTCONF,NETCNCONFはサウスバウンドAPIのプロトコル
+RESTful APIと自作プログラムがやり取りするのはJSONやXMLなどのデータ形式
+
+WPA3は総当たり攻撃やブルートフォースアタックに対応できる
+
+Cisco DNA Center 　SDNのコントローラとして機能するSD-Accessのコントローラだが、SD-Access非対応の機器も含めたネットワーク管理のプラットフォームとしても動作する。ソフトウェア単独では購入できず、サーバーと一体のアプライアンスとしてのみ購入可能。NBIにはREST API,SBIにはTelnet,SSH,SNMP,NETCONF,RESTCONF が機能する。ほかにもNetFlowやSyslogが機能する。SBIは16種類の様々なソースからデータを収集し、ネットワークを監視,分析することで問題の早期発見や迅速な解決を可能とする。
+
+
+OSPFのダイナミックルーティングとACLの設定するときだけワイルドカードマスク
+
+ユーザー名に対するパスワードはpasswordもしくはsecretのどちらか一方のみ。後から入力したほうは受付されない。ただし、同じコマンドで異なるパスワードの場合は後から入力したものに変わる。
+
+Syslog 　デブ(debug)情報(info)の(notif)警告(warn)はエロス(error),重大(critical)警報(alert)はemail(emergenc)にて
+0　emergencies 緊急
+1　alerts　警報
+2　critical　重大
+3　errors　エラー
+4　warning　警告
+5　notification　通知
+6　informational　情報
+7　debugging　デバッグ
+
+CoA(Change of Authorization)　RADIUS変更の許可を意味する。AAAサーバがクライアントにCoA要求パケットを送信し、既に存在するセッションの再認証を行う。ポリシー変更時に新しいポリシーを適用する。
+
+
+show ntp associations の見方　
+　address　　　　　ref clock 　　 　st　　when
+*192.168.10.254　172.16.10.1　　 　5　　(中略)
+＊時刻同期ok
+addressは時刻同期先のIPアドレス　ref clockは同期先のさらに参照先
+
+DiffservのQoS　分類→マーキング→キューイング→スケジューリング
+マーキングはL2,L3両方あるが、CoS(Class of Service)を行うのはL2マーキング。
+.1Qのタグ内に含まれるPCP(3bit)という領域に0~7の値をせていすることでフレーム優先度を示す。
+
+AAAが有効化しているとき、コンソールログインやvtyログインパスワードを設定していても使用せず、AAAによる認証だけする。ローカルデータベース認証の場合はradiusサーバとの接続が切れた場合でも認証可能。
+
+HDLC(High-lebel Data Link Control)　シリアルインタフェースでWANなどで使えるL2プロトコル。標準化されているが、各メーカーごとに独自方式のためにメーカーが異なると利用できない。L3を識別する領域がないために複数のプロトコルを扱えないからこうなった。Ciscoではタイプフィールドを追加した独自のHDLCを利用している
+
+ルータがerr-disableになるのは、ポートセキュリティ違反の時,BPDUがード違反の時。
+
+コントロールプレーン　パケットやフレームを転送するための情報を管理する。
+・動的ルーティングで学習した経路をルーティングテーブルに乗せる
+・動的学習によりARPテーブルを構築する
+・IPv6のNDP
+データプレーン　コントロールプレーンの決めた転送先に実際にデータを転送する。
+・パケットのカプセル/非カプセル化
+・VLANタグの追加,削除
+・VPN接続のための暗号化とIPヘッダの追加
+・NATによる送信元またはIPアドレスの変更
+・ACLやポートセキュリティなどのフィルターによるパケットの破棄
+
+拡張ACLでは、eq22,eq23などでSSH,Telnetなど、使用するポート番号を指定できる。logでは表示しないがlog-inputでは送信元のmacアドレスやパケットを受け取ったI/Fの表示が可能
+
+DAI(Dynamic ARP Inspection) trustポートでは着信したARPパケットは検査せずに通過する。untrustedポートに着信したARPパケットを検査して正規なら許可する。
+
+完全指定スタティックルート　出力I/Fとネクストホップを両方設定したもの　
+ip route [IPアドレス] [サブネットマスク] [出力I/F] [ネクストホップ]
+
+WPA３で初めて実装された認証方式はSAE
+
+show OSPF interfaceにて　attached via Network Statementと表示されている場合、この設定はルータコンフィグで行ったということ。Attached via Interface Enable ならインタフェースコンフィグで設定したということ。
+
+DHCPサーバーとして利用できるアドレスの範囲は /24などのプレフィクス表記で登録する
