@@ -1,0 +1,46 @@
+～～～～～注意～～～～～
+port-channel １
+channel-group １　この語順を間違えない！！！！
+
+show etherchannel
+show lacp　プロトコルを指定するかそうでないか！！！
+
+show lacp internal は自身のポートでのlacp情報となる　
+show lacp neighborsはmacアドレスがあることで見分けできる！！！
+
+show cdp interfaceは各I/Fごとに４～５行くらいしかない　「brief」は存在しない
+show cdp interface detail で30行くらいの表示になる
+
+ RSTPを有効化するときは[mode]忘れない！！！
+
+～～～～～注意～～～～～
+
+
+
+LACPによるネゴシエーションを自身から開始するモードでEtherChannelを設定
+(config-if)# int range f 0/1-8
+(config-if-range)#channel-group 1 mode active
+
+ネゴシエーションを行わずに静的にEtherChannelを形成するモード
+(config-if-range)#chnnel-group 1 mode on
+
+レイヤ３EtherChannelを設定
+(config)#interface port-channel 1
+(config-if)# no switchpport
+(config-if)#ip address 192.168.1.1 255.255.255.0	
+(config-if)#exit
+(config)#interface range f 0/1-2
+(config-if-range)#no switchport
+(config-if range)#channel-group 1 mode active
+
+EtherChannelの各ポート毎の状態や使用プロトコルの簡略表示
+#show etherchannel summary
+
+EtherChannelに設定されている各物理ポートのLACPのプライオリティやポート番号、アクティブかパッシブの確認
+#show lacp internal
+
+EtherChannelに設定されているネイバーの各物理ポートのプライオリティやポート番号、アクティブかパッシブの確認
+#show lacp neighbor
+
+EtherChannelに設定されている物理ポートの数やグループ番号、使用プロトコルの確認
+#show etherchannel
