@@ -1,0 +1,6 @@
+
+インタフェースの通信速度を100Mbpsにする
+(config-if)#speed 100
+
+インタフェースを全二重にする
+(config-if)#duplex full
