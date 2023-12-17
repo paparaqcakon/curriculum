@@ -1,0 +1,2 @@
+ラピッドスパニングツリーを有効化
+(config)#spanning-tree mode rapid-pvst
