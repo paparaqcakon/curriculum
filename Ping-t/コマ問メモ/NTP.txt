@@ -1,0 +1,8 @@
+NTPサーバとして動作させる　stratumは５
+(config)# ntp master 5
+
+NTPによる時刻同期状況の確認　*で同期していて　同期先のstratum値が見れる
+show ntp associations
+
+NTPによる時刻同期状況の確認　自身のstratum値が見れて　clock is synchronizedという表示がされる
+show ntp status
