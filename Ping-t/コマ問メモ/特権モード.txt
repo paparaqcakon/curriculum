@@ -1,0 +1,23 @@
+～～～～～注意～～～～～
+物理層の簡略表示は「ip」を必ず忘れない！！
+show ip interface brief
+ここのinterfaceは単数形！！！
+
+tracerouteにはshowをつけない！！！
+～～～～～注意～～～～～～
+
+
+インタフェースのエラー情報や全二重,半二重、カプセル化タイプ、MTU、物理層などが確認できるコマンド
+#show interfaces
+
+時刻を2023年1月1日　午後1時30分00秒に設定する
+#clock set 13:30:00 1 jun 2023
+
+ルータから192.168.3.1までに経由するIPアドレスを確認する
+#traceroute 192.168.3.1
+
+現在の時刻を確認する
+#show clock
+
+インタフェースの物理層とIPアドレスの確認する
+#shoe ip interface brief
