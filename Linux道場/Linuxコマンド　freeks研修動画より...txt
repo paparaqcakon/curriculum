@@ -1,0 +1,22 @@
+gitbash・・・unixコマンドを利用するためのCLI
+
+〇pwd　　(Print Working Directry) 　作業しているディレクトリを表示する
+〇cd　　(Change Directry)　　cd~~でそのディレクトリに移動する　
+〇ls　　(List)　　どんなファイルがあるのか表示する
+〇cp　　(Copy)　コピー　cp[コピー対象][コピー先のファイル名]
+〇mv　　(Move)　ファイルを移動させる　mv[移動対象][移動先]　　リネームとしても使う
+〇rm　　(Remove)　削除する　rm[削除したいファイル]
+
+〇mkdir　　(make directry)　ディレクトリ作成　　mkdir[ディレクトリ名]
+〇rmdir　　(remove directry)　ディレクトリ削除　　rmdir[ディレクトリ名]
+
+〇vi　　(Visual Display Editor)  メモ帳的なものを作成　　vi[ファイル名]
+　操作の一部　i　(insert)　文字入力モード
+　　　　　　esc  　コマンドモード
+　　　　　コマンドモードで:wq　(Write Quit)　　保存して終了
+　　　　　コマンドモードで:q!　　保存しないで終了
+
+〇cat　　ファイルの内容を出力する　　cat[ファイル名]
+〇touch　　ファイルのタイムスタンプを変更する　　touch[ファイル名]　※存在しないファイル名なら新規ファイルを作成する。viよりもこっちのが楽。
+
+〇exit　　ターミナルを終了する
