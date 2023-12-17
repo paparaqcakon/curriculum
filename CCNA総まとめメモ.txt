@@ -2,4 +2,7 @@ CCNA総まとめメモ
 
 ワイルドカードマスクはACLとOSPFの時だけ使う
 
+ACL　作成時はaccess-list
+適応時はip access-group   vtyならip access-class
+
 hellloパケットはSTP,OSPF,HSRP
