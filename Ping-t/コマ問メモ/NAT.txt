@@ -1,0 +1,40 @@
+～～～～～注意～～～～～
+ACL内部ローカルアドレス指定,DHCPプール範囲で内部グローバルアドレス指定→それらをもとにNATの変換の定義
+ip nat inside sourceの次はACL番号かACl名
+sourceを忘れない！！！
+
+
+プールを定義するときのサブネットマスクはプレフィクスでも表記可能！！
+ただしnetmask　prefix-length　どちらかの表記が絶対に必要
+
+PATはプール指定なしでも内部グローバルアドレスをインタフェースとして入力も可能　
+～～～～～注意～～～～～
+
+NATテーブルの状態を確認する
+#show ip nat transrations
+
+変換されたNATアドレス変換の統計情報を確認
+#show ip nat statistics
+
+スタティックNATの設定をする
+(config)# ip nat inside source static 192.168.1.254 10.100.100.100
+
+ダイナミックNATで使用するグローバルアドレスのプールを定義する
+(config)#access-list 1 permit 192.168.1.0 0.0.0.255
+(config)#ip nat pool Pingt 100.1.1.1 100.1.1.14 netmask 255.255.255.240
+(config)#ip nat inside source list 1 pool pingt
+
+プールを定義してからPATを設定する
+(config)#ip nat pool ping-t 10.100.100.9 10.100.100.14 netmask 255.255.255.248
+(config)#access-list 1 permit 192.168.1.0 0.0.0.31
+(config)#ip nat inside source list 1 pool pong-t overload
+
+
+名前付きACLでPATを設定する
+(config)#ip access-list standard NAT_LIST
+(config-std-nacl)#permit 192.168.10.1 0.0.0.0
+(config-std-nacl)#permit 192.168.20.1 0.0.0.0
+(config-std-nacl)#exit
+(config)#ip nat inside source list NAT_LIST interface Serial 1/0 overload
+ーーー以下略ーーip nat insideやoutsideをI/Fごとに入力ーーー
+
