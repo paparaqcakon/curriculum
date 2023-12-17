@@ -1,0 +1,17 @@
+インタフェースごとのCDPの情報確認
+show cdp interface
+
+CDPで取得した隣接機器の情報を確認
+show cdp neighbors
+
+CDPで取得した隣接機器の詳細情報(IOSソフトウェアやバージョンなど)確認
+show cdp neighbors detail
+
+CDPをインタフェース上で有効化
+(config-if)#cdp enable
+
+lldpをインタフェース上で送信するよう有効化
+(config-if)#lldp transmit
+
+lldpをインタフェース上で受信するよう有効化
+(config-if)#lldp receive
