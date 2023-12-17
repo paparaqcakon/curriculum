@@ -1,0 +1,51 @@
+～～～～～注意～～～～～
+インタフェースで設定するコマンドでは　[ip]　忘れない！！！
+show コマンドでも[ip]忘れない！！！
+
+インタフェースからospfを有効にするときはnetworkやアドレスはいらない！！！！
+再起動でも[ip]忘れない！！！
+
+ospfの要約情報はbrief  [summary]ではない！！
+～～～～～注意～～～～～
+
+ルータIDを手動設定
+(config)# router ospf 1
+(config-router)#router-id 2.2.2.2
+
+デフォルトルートを広告
+(config)#router ospf 1 
+(config-router)#default-information originate
+
+ネットワークアドレスを指定して複数のインタフェースをまとめてOSPFを有効化する
+(config)#router ospf 1
+(config-router)#network 192.168.1.248 0.0.0.7 area0
+
+ネットワークアドレスを指定して単一のインタフェースでOSPFを有効化していく
+(config)#router ospf 1 
+(config-router)#network 192.168.1.249 0.0.0.0 area 0
+(config-router)#network 192.168.1.253 0.0.0.0 area 0
+
+インタフェースを指定してOSPFを有効化する
+(config)# interface serial 0/0
+(config-if)ip ospf 1 area 0
+
+OSPFが動作しているインタフェースの要約情報を確認
+#show ip ospf interface brief
+
+OSPFのネットワークタイプを変更
+(config-if)#ip ospf network point-to-point
+
+OSPFのプロセスを再起動
+#clear ip ospf process
+
+起動中のルーティングプロトコルを確認　
+show ip protocols
+
+OSPFのプライオリティを変更
+(config)#ip ospf priority 250
+
+OSPFが動作しているインタフェースの情報確認
+show ip ospf interface
+
+
+
