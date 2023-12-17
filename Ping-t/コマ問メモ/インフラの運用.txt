@@ -1,0 +1,12 @@
+TELNETのルータでデバッグメッセージを表示する
+#terminal monitor
+
+TELNETのルータに表示されるsyslogのれベルを5にする
+(config)#logging monitor 5
+
+外部の保存場所に出力するsyslogのレベルを6にする
+(config)#logging trap 6
+
+syskogを外部の保存場所に送信する
+(config)#logging host 10.1.1.1
+
