@@ -15,8 +15,23 @@ ICMP・・・パケット送信に異常が発生したときにエラーメッ�
 通信経路を確認できる手段として[traceroute]だけでなく[tracepath]が存在する。
 若干表示される内容が異なる。
 
-TELNETを利用する場合、リモート先ホストに[inetd]または[xineted]プロセスが起動しているか確認する。
+LinuxではTelnet SSH両方あるが、標準ではSSHを利用する。
+
+
+○TELNETを利用する場合、リモート先ホストに[inetd]または[xineted]プロセスが起動しているか確認する。
 in.telnetサービスは一般的に[ineted][xineted]プロセスに含まれている　ps aux|grep ineted|grep x　コマンドで確認できる
 
 telnet IPアドレス（もしくはホスト名）　を入力で利用可能
-パスワードを要求されるので入力するとリモートアクセスできる　この状態でpa aux コマンド実行すると[in.telnetd]プロセスが起動しているのを確認できる
+パスワードを要求されるので入力するとリモートアクセスできる　この状態でps auxコマンド実行すると[in.telnetd]プロセスが起動しているのを確認できる
+Exit で接続終了できる
+
+＊TELNETでリモートログインできない時は[inetd]または[xinetd]の設定を確認する。
+[ineted]の場合は[/etc/ineted.conf]ファイルを確認する。TELNET設定行の先頭に[#]がついていたら無効のため削除してinetプロセス再起動。
+
+[xinetdの場合は[/etc/xineted.d/telnet]ファイルを確認して[disable=yes]の場合は使用できない。[disable=no]の修正してxinetdを再起動する。
+
+
+○SSHを利用する場合、リモート先のホストにsshdというリモートログインを許可するプロセスが使用できることが前提。
+ps aux|grep sshd|grep v　コマンドで確認できる
+
+ ssh ユーザ名＠ホスト名　というコマンドでログインでき、TELNET同様である。 
