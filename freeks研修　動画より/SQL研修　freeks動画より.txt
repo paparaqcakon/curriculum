@@ -7,3 +7,38 @@ boolean>>正,誤　char>>一つの文字　verchar>>文字列　byte>>-128～127
 int>>-2,147,483,628～2,147,483,647　long>>-9,223,372,036,854,775,808～9,223,372,036,854,775,807
 float>>32ビット単精度度浮動小数点数　double>>64ビット倍精度浮動小数点数
 
+ターミナルからコマンド入力していく
+Applications/MAMP/Library/bin/mysql -u root -p
+Pass root
+
+DB作製　　{この前後でMAMPをstopさせてるとエラーになる}
+CREATE DATABASE sql_lesson_1 CHARACTER SET utf8;
+　　
+DB使用
+USE sql_lesson_1;
+
+テーブル作製
+CREATE TABLE テーブル名 (カラム名 データ型,カラム名 データ型...)
+CREATE TABLE Table1 (Number int,Name varchar(20),Gender char(1),Age int,Hobby text); 
+
+レコードの登録
+INSERT INTO テーブル名 VALUES (フィールド１,フィールド2...)
+INSERT INTO Table1 VALUES (1,'田中','男',29,'サッカー'),(2,'佐藤','男',22,'読書'),(3,'山田','女',24,'映画鑑賞'),(4,'鈴木','男',33,'読書');
+
+登録したデータをテーブルから取得する
+SELECT カラム名　FROM　テーブル名
+SELECT * FROM テーブル名；　で全件データ取得
+
+WHERE句　取得内容に条件を加える
+SELECT カラム名　FROM　テーブル名　WHERE　条件；
+ANDやORで条件をさらに追加できる
+SELECT カラム名　FROM　テーブル名　WHERE　条件１ AND 条件２；
+SELECT カラム名　FROM　テーブル名　WHERE　条件１ OR 条件２；
+
+UPDATE　テーブルのデータを更新する
+UPDATE　テーブル名　SET　カラム名　＝　値　WHERE 条件
+UPDATE Table1 SET Hobby = '映画鑑賞' WHERE Number = 4 ;
+
+DELETE　データの削除
+DELETE FROM テーブル名　WHERE 条件；
+DELETE FROM Table1 WHERE Number = 4 ;
